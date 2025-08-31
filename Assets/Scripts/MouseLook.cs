@@ -9,7 +9,7 @@ public class MouseLook : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -20,18 +20,28 @@ public class MouseLook : MonoBehaviour
 
     void LookAround()
     {
-        Vector3 lookVector = inputHandler.GetLookAroundVector();
+        if(Input.GetMouseButton(1))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
 
-        float mouseX = lookVector.x * sensitivity;
+            Vector3 lookVector = inputHandler.GetLookAroundVector();
 
-        float mouseY = lookVector.y * sensitivity;
+            float mouseX = lookVector.x * sensitivity;
 
-        transform.Rotate(Vector3.up * mouseX);
+            float mouseY = lookVector.y * sensitivity;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            transform.Rotate(Vector3.up * mouseX);
 
-        Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+            Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
     }
 
 }
