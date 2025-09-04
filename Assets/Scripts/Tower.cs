@@ -9,6 +9,8 @@ public class Tower : MonoBehaviour
 {
     [SerializeField] float fireRate, firePower, startCost, range;
 
+    int tier;
+
     List<Enemy> targetsInRange = new List<Enemy>();
 
     Enemy target;
@@ -16,6 +18,41 @@ public class Tower : MonoBehaviour
     float counter;
 
     public bool IsPlaced { get; set; }
+
+
+    #region Properties
+
+    public float FireRate
+    {
+        get => fireRate;
+        set => fireRate = value;
+    }
+
+    public int Tier
+    {
+        get => tier;
+        set => tier = value;
+    }
+
+    public float FirePower
+    {
+        get => firePower;
+        set => firePower = value;
+    }
+
+    public float StartCost
+    {
+        get => startCost;
+        set => startCost = value;
+    }
+
+    public float Range
+    {
+        get => range;
+        set => range = value;
+    }
+
+    #endregion
 
     private void Start()
     {
@@ -66,7 +103,6 @@ public class Tower : MonoBehaviour
 
                 counter = 0f;
                 target.HitPoint -= firePower;
-                target.SetHitPointUI();
             }
             
         }
@@ -75,10 +111,6 @@ public class Tower : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        // Draw the sphere
-        //Gizmos.DrawSphere(transform.position, range);
-
-        // Draw wire sphere outline
 
        Gizmos.DrawWireSphere(transform.position, range);
     }

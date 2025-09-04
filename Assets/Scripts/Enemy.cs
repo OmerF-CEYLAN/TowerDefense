@@ -34,8 +34,6 @@ public class Enemy : MonoBehaviour
         rb.linearVelocity = speed * transform.forward;
 
         maxHitPoint = hitPoint;
-
-        SetHitPointUI();
     }
 
     
@@ -48,23 +46,34 @@ public class Enemy : MonoBehaviour
 
         Move();
 
-        HealthBarLookAtPlayer();
+        if (HitPointPanel.activeSelf)
+        {
+            HealthBarLookAtPlayer();
+            SetHitPointUI();
+        }
+
+
     }
 
     void Move()
     {
-        if(currentPathIndex < EnemyPathHolder.Instance.pathPoints.Count)
+        if (currentPathIndex >= EnemyPathHolder.Instance.pathPoints.Count)
+            return;
+
+        Transform target = EnemyPathHolder.Instance.pathPoints[currentPathIndex];
+
+        Vector3 dir = (target.position - transform.position).normalized;
+        rb.linearVelocity = dir * speed;
+
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        if (distance <= speed * Time.deltaTime)
         {
+            currentPathIndex++;
 
-            float distanceToPathWay = Vector3.Distance(transform.position, EnemyPathHolder.Instance.pathPoints[currentPathIndex].position);
-
-            if (distanceToPathWay <= 0.05f)
+            if (currentPathIndex < EnemyPathHolder.Instance.pathPoints.Count)
             {
-                currentPathIndex++;
-
                 transform.LookAt(EnemyPathHolder.Instance.pathPoints[currentPathIndex].position);
-
-                rb.linearVelocity = speed * transform.forward;
             }
         }
 
@@ -98,6 +107,17 @@ public class Enemy : MonoBehaviour
         HitPointPanel.transform.LookAt(Camera.main.transform.position);
 
         HitPointPanel.transform.Rotate(0, 180, 0);
+    }
+
+    public void EnableHitPointUI()
+    {
+        HitPointPanel.SetActive(true);
+        SetHitPointUI();
+    }
+
+    public void DisableHitPointUI()
+    {
+        HitPointPanel.SetActive(false);
     }
 
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class TowerPlacementManager : MonoBehaviour
@@ -33,10 +34,11 @@ public class TowerPlacementManager : MonoBehaviour
         }
 
         // Sol click ile yerleþtir
-        if (Input.GetMouseButtonDown(0))
+        if (EventSystem.current.IsPointerOverGameObject() == false && Input.GetMouseButtonDown(0))
         {
             PlaceTower();
         }
+
     }
 
 
@@ -62,7 +64,7 @@ public class TowerPlacementManager : MonoBehaviour
 
         currentTower.GetComponent<Collider>().enabled = true;
 
-        currentTower = null; // artýk yerleþti, mouse'u takip etmiyor
+        currentTower = null;
     }
 
     bool CheckForTowersNearBy(Tower currentTower)

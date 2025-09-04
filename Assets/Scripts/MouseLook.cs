@@ -7,6 +7,12 @@ public class MouseLook : MonoBehaviour
     [SerializeField] float sensitivity;
     float xRotation;
 
+    [SerializeField] LayerMask enemyLayer;
+    [SerializeField] LayerMask towerLayer;
+
+    Enemy hoveredEnemy;
+    Tower hoveredTower;
+
     void Start()
     {
 
@@ -16,6 +22,9 @@ public class MouseLook : MonoBehaviour
     void Update()
     {
         LookAround();
+
+        MouseHoverOnEnemy();
+        MouseHoverOnTower();
     }
 
     void LookAround()
@@ -43,5 +52,55 @@ public class MouseLook : MonoBehaviour
         }
 
     }
+
+    void MouseHoverOnEnemy()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray,out hit,10f, enemyLayer))
+        {
+            if(Input.GetMouseButtonDown(0) && hit.collider.TryGetComponent(out Enemy enemy))
+            {
+                if(hoveredEnemy != null)
+                {
+                    hoveredEnemy.DisableHitPointUI();
+                }
+
+                hoveredEnemy = enemy;
+                enemy.EnableHitPointUI();
+            }
+        }
+        else if(Input.GetMouseButtonDown(0) && hoveredEnemy != null)
+        {
+            hoveredEnemy.DisableHitPointUI();
+        }
+
+    }
+
+    void MouseHoverOnTower()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 10f, towerLayer))
+        {
+            if (Input.GetMouseButtonDown(0) && hit.collider.TryGetComponent(out Tower tower))
+            {
+                if (hoveredTower != null)
+                {
+                    hoveredTower.GetComponent<TowerUIController>().OnTowerUIDisabled();
+                }
+
+                hoveredTower = tower;
+                hoveredTower.GetComponent<TowerUIController>().OnTowerUIEnabled();
+            }
+        }
+        else if (Input.GetMouseButtonDown(0) && hoveredTower != null)
+        {
+            hoveredTower.GetComponent<TowerUIController>().OnTowerUIDisabled();
+        }
+    }
+
 
 }

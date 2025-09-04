@@ -709,7 +709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3387263312308806046, guid: 898883323e5addc4fad5ab0ab06b6ded, type: 3}
       propertyPath: duration
-      value: 45
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3387263312308806046, guid: 898883323e5addc4fad5ab0ab06b6ded, type: 3}
       propertyPath: spawnInterval
@@ -1473,7 +1473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3387263312308806046, guid: 898883323e5addc4fad5ab0ab06b6ded, type: 3}
       propertyPath: duration
-      value: 45
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3387263312308806046, guid: 898883323e5addc4fad5ab0ab06b6ded, type: 3}
       propertyPath: spawnInterval
@@ -3568,6 +3568,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 1746769300}
   sensitivity: 10
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  towerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1778678454
 GameObject:
   m_ObjectHideFlags: 0
@@ -4537,7 +4543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3387263312308806046, guid: 898883323e5addc4fad5ab0ab06b6ded, type: 3}
       propertyPath: duration
-      value: 45
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3387263312308806046, guid: 898883323e5addc4fad5ab0ab06b6ded, type: 3}
       propertyPath: spawnInterval
