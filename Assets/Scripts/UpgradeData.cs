@@ -5,8 +5,8 @@ using UnityEngine;
 public class UpgradeData : ScriptableObject
 {
     public float fireRate;
-    public float firePower;
+    public int firePower;
     public float range;
-    public float upgradeCost;
+    public int upgradeCost;
 
 }

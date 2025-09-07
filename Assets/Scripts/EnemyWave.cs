@@ -2,7 +2,8 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyWave : MonoBehaviour
+[CreateAssetMenu(fileName = "MyAssets",menuName = "EnemyWave")]
+public class EnemyWave : ScriptableObject
 {
 
     public List<EnemySpawnInfo> enemySpawnInfos;
@@ -11,14 +12,6 @@ public class EnemyWave : MonoBehaviour
 
     public float spawnInterval;
 
-    void Start()
-    {
-        
-    }
+    public int prizeMoney;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

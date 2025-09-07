@@ -1,20 +1,11 @@
 using UnityEngine;
 
-public class EnemySpawnInfo : MonoBehaviour
+[CreateAssetMenu(fileName = "MyAssets",menuName = "EnemySoawnInfo")]
+
+public class EnemySpawnInfo : ScriptableObject
 {
 
     public GameObject enemyType;
     public int enemyCount;
 
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,17 +6,19 @@ using UnityEngine.UI;
 public class PlayerHealthHandler : MonoBehaviour
 {
 
-    [SerializeField] float health;
+    [SerializeField] int health;
 
-    float maxHealth;
+    int maxHealth;
 
-    public float Health { get => health; set => health = value; }
+    public int Health { get => health; set => health = value; }
 
     public static PlayerHealthHandler Instance;
 
     [SerializeField] TextMeshProUGUI healthText;
 
     [SerializeField] Image healthBar;
+
+    [SerializeField] float barChangeSpeed;
 
     private void Awake()
     {
@@ -46,7 +49,7 @@ public class PlayerHealthHandler : MonoBehaviour
     {
         healthText.text = health + " / " + maxHealth;
 
-        healthBar.fillAmount = health / maxHealth;
+        DOTween.To(() => healthBar.fillAmount, x => healthBar.fillAmount = x, (float)health / maxHealth, barChangeSpeed);
     }
 
 

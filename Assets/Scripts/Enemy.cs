@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    float speed, hitPoint;
+    [SerializeField] float speed;
 
-    float maxHitPoint;
+    [SerializeField] int hitPoint;
+
+    int maxHitPoint;
 
     [SerializeField]
     GameObject HitPointPanel;
@@ -19,13 +20,13 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     Image hitpointBar;
 
-
+    [SerializeField] float barChangeSpeed;
 
     public int currentPathIndex = 1;
 
     Rigidbody rb;
 
-    public float HitPoint {  get => hitPoint; set => hitPoint = value; }
+    public int HitPoint {  get => hitPoint; set => hitPoint = value; }
 
     void Start()
     {
@@ -79,6 +80,21 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public int GetHit(int firePower)
+    {
+        if (hitPoint <= 0) return 0;
+
+        int hitPointBeforeHit = hitPoint; 
+
+        hitPoint -= firePower;
+
+        if (hitPointBeforeHit >= firePower)
+            return firePower;
+        else 
+            return hitPointBeforeHit;
+
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("EndPoint"))
@@ -99,7 +115,7 @@ public class Enemy : MonoBehaviour
     {
         hitPointText.text = hitPoint + " / " + maxHitPoint;
 
-        hitpointBar.fillAmount = hitPoint / maxHitPoint;
+        DOTween.To(() => hitpointBar.fillAmount, x => hitpointBar.fillAmount = x, (float)hitPoint / maxHitPoint, barChangeSpeed);
     }
 
     void HealthBarLookAtPlayer()

@@ -267,6 +267,7 @@ MonoBehaviour:
   HitPointPanel: {fileID: 1578114762954782218}
   hitPointText: {fileID: 6058014125376160747}
   hitpointBar: {fileID: 4182275160601606949}
+  barChangeSpeed: 1
   currentPathIndex: 1
 --- !u!1 &5327638944569984166
 GameObject:

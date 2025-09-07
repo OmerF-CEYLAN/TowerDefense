@@ -8,7 +8,7 @@ public class TowerPlacementManager : MonoBehaviour
     [SerializeField] List<GameObject> towerPrefabs;
     [SerializeField] List<Button> buttons;
 
-    GameObject currentTower;   // henüz yerleþtirilmemiþ kule
+    GameObject currentTower;
     Camera cam;
 
     void Start()
@@ -24,6 +24,8 @@ public class TowerPlacementManager : MonoBehaviour
 
     void Update()
     {
+        LockButtonsIfNotEnoughMoney();
+
         if (currentTower == null) return;
 
         // Her karede mouse pozisyonunu güncelle
@@ -44,7 +46,7 @@ public class TowerPlacementManager : MonoBehaviour
 
     void StartPlacingTower(GameObject towerPrefab)
     {
-        if (currentTower != null) Destroy(currentTower); // önceki yerleþmemiþ kule varsa iptal et
+        if (currentTower != null) Destroy(currentTower);
         currentTower = Instantiate(towerPrefab);
     }
 
@@ -58,13 +60,36 @@ public class TowerPlacementManager : MonoBehaviour
         if (CheckForTowersNearBy(towerScript) || CheckForRoad(towerScript))
             return;
 
+        if (MoneyManager.Instance.HaveEnoughMoney(towerScript.StartCost) == false)
+            return;
+
 
         if (towerScript != null)
+        {
+            MoneyManager.Instance.SpendMoney(towerScript.StartCost);
+
             towerScript.IsPlaced = true;
 
-        currentTower.GetComponent<Collider>().enabled = true;
+            currentTower.GetComponent<Collider>().enabled = true;
 
-        currentTower = null;
+            currentTower = null;
+        }
+
+    }
+
+    void LockButtonsIfNotEnoughMoney()
+    {
+        for (int i = 0; i < buttons.Count; i++)
+        {
+
+            Tower tower = towerPrefabs[i].GetComponent<Tower>();
+
+            if (MoneyManager.Instance.HaveEnoughMoney(tower.StartCost))
+                buttons[i].interactable = true;
+            else
+                buttons[i].interactable = false;
+
+        }
     }
 
     bool CheckForTowersNearBy(Tower currentTower)

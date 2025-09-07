@@ -7,7 +7,13 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] float fireRate, firePower, startCost, range;
+    [SerializeField] float fireRate, range;
+
+    [SerializeField] int firePower;
+
+    [SerializeField] int startCost;
+
+    [SerializeField] int upgradeCost;
 
     int tier;
 
@@ -19,6 +25,7 @@ public class Tower : MonoBehaviour
 
     public bool IsPlaced { get; set; }
 
+    [SerializeField] int totalDamage;
 
     #region Properties
 
@@ -34,16 +41,22 @@ public class Tower : MonoBehaviour
         set => tier = value;
     }
 
-    public float FirePower
+    public int FirePower
     {
         get => firePower;
         set => firePower = value;
     }
 
-    public float StartCost
+    public int StartCost
     {
         get => startCost;
         set => startCost = value;
+    }
+
+    public int UpgradeCost
+    {
+        get => upgradeCost;
+        set => upgradeCost = value;
     }
 
     public float Range
@@ -52,11 +65,18 @@ public class Tower : MonoBehaviour
         set => range = value;
     }
 
+    public int TotalDamage
+    {
+        get => totalDamage;
+        set => totalDamage = value;
+    }
+
     #endregion
 
     private void Start()
     {
         counter = fireRate;
+
     }
 
     void Update()
@@ -70,7 +90,10 @@ public class Tower : MonoBehaviour
 
     void DetectEnemyInRange()
     {
-        Collider[] enemyColliders = Physics.OverlapSphere(transform.position, range, LayerMask.GetMask("Enemy"));
+        Vector3 rangeCheckPos = transform.position;
+        rangeCheckPos.y = 0;
+
+        Collider[] enemyColliders = Physics.OverlapSphere(rangeCheckPos, range, LayerMask.GetMask("Enemy"));
 
 
         targetsInRange.RemoveAll(e => e == null || enemyColliders.Contains(e.GetComponent<Collider>()) == false);
@@ -102,7 +125,11 @@ public class Tower : MonoBehaviour
                 transform.LookAt(target.transform.position);
 
                 counter = 0f;
-                target.HitPoint -= firePower;
+                int dealedDamage = target.GetHit(firePower);
+
+                MoneyManager.Instance.AddMoney(dealedDamage);
+
+                totalDamage += dealedDamage;
             }
             
         }
@@ -112,7 +139,10 @@ public class Tower : MonoBehaviour
     {
         Gizmos.color = Color.white;
 
-       Gizmos.DrawWireSphere(transform.position, range);
+        Vector3 rangeCheckPos = transform.position;
+        rangeCheckPos.y = 0;
+
+        Gizmos.DrawWireSphere(rangeCheckPos, range);
     }
 
 
