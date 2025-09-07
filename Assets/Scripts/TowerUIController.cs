@@ -84,6 +84,11 @@ public class TowerUIController : MonoBehaviour
 
     }
 
+    public void RemoveTower(GameObject towerObject)
+    {
+        Destroy(towerObject);
+    }
+
     void UpdateTotalDamageText()
     {
         totalDamageText.text = thisTower.TotalDamage.ToString();

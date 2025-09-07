@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &9214858079575321274
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491738228879744140, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b155ee7ebd636124b97d7d831bf912d0, type: 2}
+    - target: {fileID: 2849952118880138193, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 14c51fd8a09da0046a2daf34f8625b61, type: 2}
+    - target: {fileID: 4814659723037925659, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_Name
+      value: MilitaryBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: firstUpgradeCost
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: upgradeDatas.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: 'upgradeDatas.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7fa940110fc09f54f873be5b480f6b1f, type: 2}
+    - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: 'upgradeDatas.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 831bb5b18670f5049b2604013a4f659f, type: 2}
+    - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: 'upgradeDatas.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b95616f3f9d2da349a0def24a7f31b82, type: 2}
+    - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: range
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: fireRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: firePower
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: startCost
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: upgradeCost
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189355308688365946, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: segments
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
