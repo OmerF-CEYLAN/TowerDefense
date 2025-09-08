@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PathPoint
   - EndPoint
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

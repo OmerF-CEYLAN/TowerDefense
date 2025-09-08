@@ -11,7 +11,7 @@ public class MouseLook : MonoBehaviour
     [SerializeField] LayerMask towerLayer;
 
     Enemy hoveredEnemy;
-    Tower hoveredTower;
+    TowerBase hoveredTower;
 
     void Start()
     {
@@ -85,15 +85,31 @@ public class MouseLook : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 10f, towerLayer))
         {
-            if (Input.GetMouseButtonDown(0) && hit.collider.TryGetComponent(out Tower tower))
+            if (Input.GetMouseButtonDown(0) && hit.collider.TryGetComponent(out TowerBase tower))
             {
                 if (hoveredTower != null)
                 {
-                    hoveredTower.GetComponent<TowerUIController>().OnTowerUIDisabled();
+                    if (hoveredTower.TryGetComponent(out TowerUIController towerUIController))
+                    {
+                        towerUIController.OnTowerUIDisabled();
+                    }
+                    else if (hoveredEnemy.TryGetComponent(out Vehicle vehicleObj))
+                    {
+                        vehicleObj.DisableHitPointUI();
+                    }
                 }
 
                 hoveredTower = tower;
-                hoveredTower.GetComponent<TowerUIController>().OnTowerUIEnabled();
+
+                if(hoveredTower.TryGetComponent(out TowerUIController towerUI))
+                {
+                    towerUI.OnTowerUIEnabled();
+                }
+                else if(hoveredTower.TryGetComponent(out Vehicle vehicle))
+                {
+                    vehicle.EnableHitPointUI();
+                }
+
             }
         }
         else if (Input.GetMouseButtonDown(0) && hoveredTower != null)

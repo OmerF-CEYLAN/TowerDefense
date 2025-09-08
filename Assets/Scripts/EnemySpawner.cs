@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] GameObject spawnPoint;
 
-   float spawnTime = 0;
+    float spawnTime = 0;
 
     void Start()
     {

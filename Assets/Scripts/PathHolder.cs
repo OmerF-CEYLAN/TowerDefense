@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPathHolder : MonoBehaviour
+public class PathHolder : MonoBehaviour
 {
     
     public List<Transform> pathPoints;
 
-    public static EnemyPathHolder Instance;
+    public static PathHolder Instance;
 
     private void Awake()
     {

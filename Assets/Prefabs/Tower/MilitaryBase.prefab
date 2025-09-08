@@ -60,6 +60,62 @@ PrefabInstance:
       propertyPath: m_Name
       value: MilitaryBase
       objectReference: {fileID: 0}
+    - target: {fileID: 6071369506286097090, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071369506286097090, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071369506286097090, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071369506286097090, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127334742538884331, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127334742538884331, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_Center.y
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197676907109019263, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197676907109019263, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197676907109019263, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197676907109019263, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250601432931702941, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250601432931702941, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250601432931702941, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250601432931702941, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: firstUpgradeCost
       value: 150
@@ -93,6 +149,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: startCost
       value: 350
       objectReference: {fileID: 0}
@@ -105,7 +165,31 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7303109507063800346, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4814659723037925659, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5265893298663194408}
   m_SourcePrefab: {fileID: 100100000, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+--- !u!1 &4409264946667834273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4814659723037925659, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+  m_PrefabInstance: {fileID: 9214858079575321274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5265893298663194408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4409264946667834273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ebff83aebffab4f9af2211e8bb2d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
+  vehicle: {fileID: 1236448218051784667, guid: ddb46a05e24b6cb40ba6a365f0367073, type: 3}
+  spawnTime: 10

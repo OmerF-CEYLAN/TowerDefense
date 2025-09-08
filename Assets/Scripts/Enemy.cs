@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        transform.LookAt(EnemyPathHolder.Instance.pathPoints[currentPathIndex].position);
+        transform.LookAt(PathHolder.Instance.pathPoints[currentPathIndex].position);
         rb.linearVelocity = speed * transform.forward;
 
         maxHitPoint = hitPoint;
@@ -58,10 +58,10 @@ public class Enemy : MonoBehaviour
 
     void Move()
     {
-        if (currentPathIndex >= EnemyPathHolder.Instance.pathPoints.Count)
+        if (currentPathIndex >= PathHolder.Instance.pathPoints.Count)
             return;
 
-        Transform target = EnemyPathHolder.Instance.pathPoints[currentPathIndex];
+        Transform target = PathHolder.Instance.pathPoints[currentPathIndex];
 
         Vector3 dir = (target.position - transform.position).normalized;
         rb.linearVelocity = dir * speed;
@@ -72,24 +72,24 @@ public class Enemy : MonoBehaviour
         {
             currentPathIndex++;
 
-            if (currentPathIndex < EnemyPathHolder.Instance.pathPoints.Count)
+            if (currentPathIndex < PathHolder.Instance.pathPoints.Count)
             {
-                transform.LookAt(EnemyPathHolder.Instance.pathPoints[currentPathIndex].position);
+                transform.LookAt(PathHolder.Instance.pathPoints[currentPathIndex].position);
             }
         }
 
     }
 
-    public int GetHit(int firePower)
+    public int GetHit(int damage)
     {
         if (hitPoint <= 0) return 0;
 
         int hitPointBeforeHit = hitPoint; 
 
-        hitPoint -= firePower;
+        hitPoint -= damage;
 
-        if (hitPointBeforeHit >= firePower)
-            return firePower;
+        if (hitPointBeforeHit >= damage)
+            return damage;
         else 
             return hitPointBeforeHit;
 
@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour
 
     public float GetDistanceToNextPath()
     {
-        return Vector3.Distance(transform.position, EnemyPathHolder.Instance.pathPoints[currentPathIndex].position);
+        return Vector3.Distance(transform.position, PathHolder.Instance.pathPoints[currentPathIndex].position);
     }
 
     public void SetHitPointUI()

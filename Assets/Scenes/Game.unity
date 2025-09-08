@@ -1944,7 +1944,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1050100630
 MonoBehaviour:
@@ -2044,7 +2044,7 @@ GameObject:
   - component: {fileID: 1081079073}
   - component: {fileID: 1081079072}
   m_Layer: 0
-  m_Name: Enemy Path Holder
+  m_Name: Path Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2059,7 +2059,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1081079071}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 717e7fd62469f394c81e803a3441f1d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 0afc9c50d2f53614dbb21a91303bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathPoints:
@@ -4107,9 +4107,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2063547193}
+  - component: {fileID: 2063547194}
   m_Layer: 0
   m_Name: SpawnPoint
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4129,6 +4130,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2063547194
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063547192}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2069082560
 GameObject:
   m_ObjectHideFlags: 0
@@ -4315,6 +4337,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6166090093760672107, guid: 2bb05b56c7907094087053b0045b8b93, type: 3}
+      propertyPath: buttons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166090093760672107, guid: 2bb05b56c7907094087053b0045b8b93, type: 3}
       propertyPath: 'buttons.Array.data[0]'
       value: 
       objectReference: {fileID: 1039740678}
@@ -4322,6 +4348,18 @@ PrefabInstance:
       propertyPath: 'buttons.Array.data[1]'
       value: 
       objectReference: {fileID: 2920687}
+    - target: {fileID: 6166090093760672107, guid: 2bb05b56c7907094087053b0045b8b93, type: 3}
+      propertyPath: 'buttons.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1050100630}
+    - target: {fileID: 6166090093760672107, guid: 2bb05b56c7907094087053b0045b8b93, type: 3}
+      propertyPath: towerPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166090093760672107, guid: 2bb05b56c7907094087053b0045b8b93, type: 3}
+      propertyPath: 'towerPrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 4409264946667834273, guid: 437afa2dfaab6e64b9ec0ebd85e4cde7, type: 3}
     - target: {fileID: 9045639581019200777, guid: 2bb05b56c7907094087053b0045b8b93, type: 3}
       propertyPath: m_Name
       value: TowerPlacementManager
