@@ -24,6 +24,8 @@ public class Vehicle : TowerBase
 
     Rigidbody rb;
 
+    public Tower militaryBaseTower;
+
     public float Speed
     {
         get => speed; set => speed = value;
@@ -90,11 +92,36 @@ public class Vehicle : TowerBase
 
     }
 
+    protected override void HitTarget()
+    {
+        counter += Time.deltaTime;
+
+        if (target != null)
+        {
+            if (counter >= fireRate)
+            {
+                transform.LookAt(target.transform.position);
+
+                counter = 0f;
+                int dealedDamage = target.GetHit(firePower);
+
+                MoneyManager.Instance.AddMoney(dealedDamage);
+
+                totalDamage += dealedDamage;
+
+                militaryBaseTower.TotalDamage += dealedDamage;
+            }
+
+        }
+    }
+
     public void CrashToEnemies(Enemy crashedEnemy)
     {
         int dealedDamage = health >= crashedEnemy.HitPoint ? crashedEnemy.HitPoint : health;
 
         health -= dealedDamage;
+
+        militaryBaseTower.TotalDamage += dealedDamage;
 
         crashedEnemy.GetHit(dealedDamage);
     }

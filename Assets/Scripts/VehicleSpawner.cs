@@ -41,6 +41,9 @@ public class VehicleSpawner : MonoBehaviour
     void SpawnVehicle()
     {
         Vehicle spawnedVehicle = Instantiate(vehicle, spawnPoint.transform.position, Quaternion.identity).GetComponent<Vehicle>();
+
+        spawnedVehicle.militaryBaseTower = thisTower;
+
         SetVehicleProperties(spawnedVehicle);
     }
 
@@ -53,7 +56,6 @@ public class VehicleSpawner : MonoBehaviour
             spawnedVehicle.FireRate = vehicleUpgradeData.fireRate;
             spawnedVehicle.FirePower = vehicleUpgradeData.firePower;
             spawnedVehicle.Range = vehicleUpgradeData.range;
-
         }
 
     }
