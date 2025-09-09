@@ -16,12 +16,29 @@ public class Vehicle : TowerBase
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] Image healthBar;
 
+    [SerializeField] int segments = 60;
+    [SerializeField] float lineWidth = 0.05f;
+    [SerializeField] LineRenderer lr;
+
     int currentPathIndex;
 
     Rigidbody rb;
 
+    public float Speed
+    {
+        get => speed; set => speed = value;
+    }
+
+    public int Health
+    {
+        get => health; set => health = value;
+    }
+
     void Start()
     {
+        lr.startWidth = lineWidth;
+        lr.endWidth = lineWidth;
+
         currentPathIndex = PathHolder.Instance.pathPoints.Count - 1;
 
         maxHealth = health;
@@ -95,8 +112,23 @@ public class Vehicle : TowerBase
         }
     }
 
+    public void DrawRangeCircle(float radius)
+    {
+        lr.positionCount = segments;
+
+        for (int i = 0; i < segments; i++)
+        {
+            float angle = ((float)i / segments) * Mathf.PI * 2f;
+            float x = Mathf.Cos(angle) * radius;
+            float z = Mathf.Sin(angle) * radius;
+            lr.SetPosition(i, new Vector3(x, 0f, z));
+        }
+    }
+
     public void SetHealthUI()
     {
+        DrawRangeCircle(range);
+
         healthText.text = health + " / " + maxHealth;
 
         DOTween.To(() => healthBar.fillAmount, x => healthBar.fillAmount = x, (float)health / maxHealth, barChangeSpeed);
@@ -111,12 +143,14 @@ public class Vehicle : TowerBase
 
     public void EnableHitPointUI()
     {
+        lr.gameObject.SetActive(true);
         healthPanel.SetActive(true);
         SetHealthUI();
     }
 
     public void DisableHitPointUI()
     {
+        lr.gameObject.SetActive(false);
         healthPanel.SetActive(false);
     }
 

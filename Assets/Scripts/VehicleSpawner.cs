@@ -14,6 +14,8 @@ public class VehicleSpawner : MonoBehaviour
 
     float counter;
 
+    VehicleUpgradeData vehicleUpgradeData;
+
     void Start()
     {
         spawnPoint = GameObject.Find("EndPoint");
@@ -38,7 +40,27 @@ public class VehicleSpawner : MonoBehaviour
 
     void SpawnVehicle()
     {
-        Instantiate(vehicle, spawnPoint.transform.position, Quaternion.identity);
+        Vehicle spawnedVehicle = Instantiate(vehicle, spawnPoint.transform.position, Quaternion.identity).GetComponent<Vehicle>();
+        SetVehicleProperties(spawnedVehicle);
+    }
+
+    void SetVehicleProperties(Vehicle spawnedVehicle)
+    {
+        if(vehicleUpgradeData != null)
+        {
+            spawnedVehicle.Speed = vehicleUpgradeData.speed;
+            spawnedVehicle.Health = vehicleUpgradeData.health;
+            spawnedVehicle.FireRate = vehicleUpgradeData.fireRate;
+            spawnedVehicle.FirePower = vehicleUpgradeData.firePower;
+            spawnedVehicle.Range = vehicleUpgradeData.range;
+
+        }
+
+    }
+
+    public void SetVehicleData(VehicleUpgradeData vehicleData)
+    {
+        vehicleUpgradeData = vehicleData;
     }
 
 }

@@ -31,6 +31,16 @@ public class TowerUpgrader : MonoBehaviour
         thisTower.FireRate = upgradeData.fireRate;
         thisTower.Range = upgradeData.range;
 
+        if(upgradeData is VehicleUpgradeData)
+        {
+            if(thisTower.TryGetComponent(out VehicleSpawner vehicleSpawner))
+            {
+                VehicleUpgradeData vehicleUpgradeData = upgradeData as VehicleUpgradeData;
+                vehicleSpawner.SetVehicleData(vehicleUpgradeData);
+            }
+
+        }
+
         thisTower.Tier++;
 
         if (thisTower.Tier < upgradeDatas.Count)
@@ -41,9 +51,8 @@ public class TowerUpgrader : MonoBehaviour
         }
         else
         {
-            thisTower.UpgradeCost = 0;
+            thisTower.UpgradeCost = 0; //if its zero then disable it on Set Tower UI
         }
-
 
         thisTower.GetComponent<TowerUIController>().SetTowerUI();
     }

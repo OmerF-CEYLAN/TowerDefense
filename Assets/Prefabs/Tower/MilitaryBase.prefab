@@ -122,20 +122,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: upgradeDatas.Array.size
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: 'upgradeDatas.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 7fa940110fc09f54f873be5b480f6b1f, type: 2}
+      objectReference: {fileID: 11400000, guid: 88ad1eb744197e1459eafd89babb607c, type: 2}
     - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: 'upgradeDatas.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 831bb5b18670f5049b2604013a4f659f, type: 2}
+      objectReference: {fileID: 11400000, guid: 7c8ab7a3b771b7e4ca782f4ad69de0b1, type: 2}
     - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: 'upgradeDatas.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: b95616f3f9d2da349a0def24a7f31b82, type: 2}
+      objectReference: {fileID: 11400000, guid: 0d52940666e23dd45a678b1e0a7bbf73, type: 2}
+    - target: {fileID: 7657359337019360159, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
+      propertyPath: 'upgradeDatas.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 5bfa711ae879df74794616664e4d53c8, type: 2}
     - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: range
       value: 0
@@ -158,7 +162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: upgradeCost
-      value: 500
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 9189355308688365946, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: segments

@@ -34,6 +34,9 @@ public class Tower : TowerBase
         if (!IsPlaced)
             return;
 
+        if (gameObject.TryGetComponent(out VehicleSpawner vehicleSpawner))
+            return;
+
         DetectEnemyInRange();
         HitTarget();
     }

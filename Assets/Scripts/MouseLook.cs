@@ -93,7 +93,7 @@ public class MouseLook : MonoBehaviour
                     {
                         towerUIController.OnTowerUIDisabled();
                     }
-                    else if (hoveredEnemy.TryGetComponent(out Vehicle vehicleObj))
+                    else if (hoveredTower.TryGetComponent(out Vehicle vehicleObj))
                     {
                         vehicleObj.DisableHitPointUI();
                     }
@@ -114,7 +114,14 @@ public class MouseLook : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(0) && hoveredTower != null)
         {
-            hoveredTower.GetComponent<TowerUIController>().OnTowerUIDisabled();
+            if (hoveredTower.TryGetComponent(out TowerUIController towerUIController))
+            {
+                towerUIController.OnTowerUIDisabled();
+            }
+            else if (hoveredTower.TryGetComponent(out Vehicle vehicleObj))
+            {
+                vehicleObj.DisableHitPointUI();
+            }
         }
     }
 

@@ -101,11 +101,14 @@ MonoBehaviour:
   range: 0
   firePower: 0
   totalDamage: 0
-  speed: 5
+  speed: 2
   health: 20
   healthPanel: {fileID: 3468373153422887476}
   healthText: {fileID: 1004544159895177969}
   healthBar: {fileID: 2727462401496409888}
+  segments: 60
+  lineWidth: 0.05
+  lr: {fileID: 7390030328944317430}
 --- !u!1 &1754740794094152225
 GameObject:
   m_ObjectHideFlags: 0
