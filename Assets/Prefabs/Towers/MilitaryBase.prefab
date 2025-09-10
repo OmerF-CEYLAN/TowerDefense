@@ -196,4 +196,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 0}
   vehicle: {fileID: 1236448218051784667, guid: ddb46a05e24b6cb40ba6a365f0367073, type: 3}
-  spawnTime: 10
+  spawnTime: 30

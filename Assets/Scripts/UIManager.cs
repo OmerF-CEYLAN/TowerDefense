@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    
+    [SerializeField] GameObject panels;
 
+    [SerializeField] string gameScene;
     void Start()
     {
         
@@ -14,4 +16,11 @@ public class UIManager : MonoBehaviour
     {
         
     }
+
+    public void PlayButton()
+    {
+        SceneManager.LoadScene(gameScene);
+    }
+
+
 }

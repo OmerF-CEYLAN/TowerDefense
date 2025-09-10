@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] InputHandler inputHandler;
     Rigidbody rb;
 
+    [SerializeField] float xClamp, zClamp;
+
     bool isGrounded;
 
     void Awake()
@@ -40,6 +42,13 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = (forward * inputVector.y + right * inputVector.x).normalized;
 
         transform.position += speed * Time.deltaTime * moveDirection;
+
+        Vector3 playerPos = transform.position;
+
+        playerPos.x = Mathf.Clamp(playerPos.x, -xClamp, xClamp);
+        playerPos.z = Mathf.Clamp(playerPos.z, -zClamp, zClamp);
+
+        transform.position = playerPos;
 
     }
 

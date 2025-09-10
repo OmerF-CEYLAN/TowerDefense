@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
@@ -9,35 +11,75 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] EnemySpawner enemySpawner;
 
+    [SerializeField] float initialWaveDelay;
+
+    [SerializeField] Image clockImage;
+
+    [SerializeField] TextMeshProUGUI waveText;
+
+    float duration;
+
     float counter = 0;
 
     private void Awake()
     {
-
+        duration = initialWaveDelay;
     }
 
     void Start()
     {
-        enemySpawner.StartEnemySpawn(enemyWaves[currentWaveIndex]);
 
-        currentWaveIndex++;
     }
 
     // Update is called once per frame
     void Update()
     {
+        SetWaveText();
+
         if (currentWaveIndex >= enemyWaves.Count)
-            return;
+            return;  
 
         counter += Time.deltaTime;
 
-        if(counter > enemyWaves[currentWaveIndex - 1].duration)
+        if (currentWaveIndex == 0 && counter >= initialWaveDelay)
         {
             enemySpawner.StartEnemySpawn(enemyWaves[currentWaveIndex]);
 
             currentWaveIndex++;
 
+            duration = enemyWaves[currentWaveIndex].duration;
+
+            counter = 0;
+
+        }
+        else if (counter >= enemyWaves[currentWaveIndex].duration)
+        {
+
+            enemySpawner.StartEnemySpawn(enemyWaves[currentWaveIndex]);
+
+            currentWaveIndex++;
+
+            if (currentWaveIndex >= enemyWaves.Count)
+            {
+                clockImage.fillAmount = 1f;
+                return;
+            }
+
             counter = 0;
         }
+
+        SetClockImage();
     }
+
+    void SetClockImage()
+    {
+        clockImage.fillAmount = counter / duration;
+    }
+
+    void SetWaveText()
+    {
+        waveText.text = "Wave " + (currentWaveIndex);
+    }
+
+
 }

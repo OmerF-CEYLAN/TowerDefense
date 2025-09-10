@@ -105,11 +105,11 @@ public class Vehicle : TowerBase
                 counter = 0f;
                 int dealedDamage = target.GetHit(firePower);
 
-                MoneyManager.Instance.AddMoney(dealedDamage);
-
                 totalDamage += dealedDamage;
 
                 militaryBaseTower.TotalDamage += dealedDamage;
+
+                MoneyManager.Instance.AddMoney(dealedDamage);
             }
 
         }
@@ -122,6 +122,8 @@ public class Vehicle : TowerBase
         health -= dealedDamage;
 
         militaryBaseTower.TotalDamage += dealedDamage;
+
+        MoneyManager.Instance.AddMoney(dealedDamage);
 
         crashedEnemy.GetHit(dealedDamage);
     }

@@ -109,6 +109,7 @@ MonoBehaviour:
   segments: 60
   lineWidth: 0.05
   lr: {fileID: 7390030328944317430}
+  militaryBaseTower: {fileID: 0}
 --- !u!1 &1754740794094152225
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +260,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

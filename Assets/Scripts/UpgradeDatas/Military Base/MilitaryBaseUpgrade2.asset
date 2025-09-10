@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 1
   firePower: 1
-  range: 3
+  range: 6
   upgradeCost: 600
   speed: 2
   health: 60
