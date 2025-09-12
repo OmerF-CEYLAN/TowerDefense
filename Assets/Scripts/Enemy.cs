@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
 
     public int HitPoint {  get => hitPoint; set => hitPoint = value; }
 
+    public float Speed { get => speed; set => speed = value; }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();

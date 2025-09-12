@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 8114054169588839010}
   - component: {fileID: -2645774020878635294}
   - component: {fileID: 3425933402523404374}
+  - component: {fileID: 1237127189205299621}
   m_Layer: 8
   m_Name: ZombieBase
   m_TagString: Untagged
@@ -269,6 +270,18 @@ MonoBehaviour:
   hitpointBar: {fileID: 4182275160601606949}
   barChangeSpeed: 1
   currentPathIndex: 1
+--- !u!114 &1237127189205299621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576479786938453882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a974262bc65766046972933f62b5d7bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5327638944569984166
 GameObject:
   m_ObjectHideFlags: 0

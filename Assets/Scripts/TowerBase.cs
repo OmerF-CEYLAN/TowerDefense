@@ -7,6 +7,7 @@ public abstract class TowerBase : MonoBehaviour
 
     [SerializeField] protected float fireRate, range;
     [SerializeField] protected int firePower,totalDamage;
+    [SerializeField] protected TowerAnimations towerAnimations;
     protected int tier;
 
     protected List<Enemy> targetsInRange = new List<Enemy>();
@@ -83,6 +84,8 @@ public abstract class TowerBase : MonoBehaviour
             if (counter >= fireRate)
             {
                 transform.LookAt(target.transform.position);
+
+                towerAnimations.ShootAnim();
 
                 counter = 0f;
                 int dealedDamage = target.GetHit(firePower);

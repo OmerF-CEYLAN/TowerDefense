@@ -1,5 +1,5 @@
 using DG.Tweening;
-using System.Linq;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +19,8 @@ public class Vehicle : TowerBase
     [SerializeField] int segments = 60;
     [SerializeField] float lineWidth = 0.05f;
     [SerializeField] LineRenderer lr;
+
+    [SerializeField] List<GameObject> tires;
 
     int currentPathIndex;
 
@@ -51,6 +53,8 @@ public class Vehicle : TowerBase
 
     void Update()
     {
+        RotateTires();
+
         if (health <= 0)
         {
             Destroy(gameObject);
@@ -100,7 +104,6 @@ public class Vehicle : TowerBase
         {
             if (counter >= fireRate)
             {
-                transform.LookAt(target.transform.position);
 
                 counter = 0f;
                 int dealedDamage = target.GetHit(firePower);
@@ -181,6 +184,14 @@ public class Vehicle : TowerBase
     {
         lr.gameObject.SetActive(false);
         healthPanel.SetActive(false);
+    }
+
+    void RotateTires()
+    {
+        foreach (var item in tires)
+        {
+            item.transform.Rotate(Vector3.forward * 15f,Space.Self);    
+        }
     }
 
 

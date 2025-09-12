@@ -81,7 +81,6 @@ public class TowerPlacementManager : MonoBehaviour
     {
         for (int i = 0; i < buttons.Count; i++)
         {
-
             Tower tower = towerPrefabs[i].GetComponent<Tower>();
 
             if (MoneyManager.Instance.HaveEnoughMoney(tower.StartCost))
@@ -95,12 +94,27 @@ public class TowerPlacementManager : MonoBehaviour
     bool CheckForTowersNearBy(Tower currentTower)
     {
         currentTower.GetComponent<Collider>().enabled = false;
+
+        if (currentTower.TryGetComponent(out VehicleSpawner vehicleSpawner))
+        {
+            Vector3 localPos = new Vector3(-0.355f, -0.49f, -0.016f);
+            Vector3 worldPos = vehicleSpawner.transform.TransformPoint(localPos);
+
+            return Physics.CheckSphere(worldPos, 0.75f, LayerMask.GetMask("Tower"));
+        }
         return Physics.CheckSphere(currentTower.transform.position,0.3f,LayerMask.GetMask("Tower"));
     }
 
     bool CheckForRoad(Tower currentTower)
     {
         //return Physics.Raycast(currentTower.transform.position,Vector3.down, out RaycastHit hit, 10f, LayerMask.GetMask("Road"));
+        if(currentTower.TryGetComponent(out VehicleSpawner vehicleSpawner))
+        {
+            Vector3 localPos = new Vector3(-0.355f, -0.49f, -0.016f);
+            Vector3 worldPos = vehicleSpawner.transform.TransformPoint(localPos);
+
+            return Physics.CheckSphere(worldPos, 0.75f, LayerMask.GetMask("Road"));
+        }
         return Physics.CheckSphere(currentTower.transform.position, 0.55f, LayerMask.GetMask("Road"));
     }
 
