@@ -15,6 +15,6 @@ MonoBehaviour:
   fireRate: 0
   firePower: 0
   range: 0
-  upgradeCost: 400
+  upgradeCost: 200
   speed: 2
-  health: 60
+  health: 40

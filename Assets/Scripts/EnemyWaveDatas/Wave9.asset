@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 770761d304704b8478336048f1b340f6, type: 3}
-  m_Name: Wave2
+  m_Name: Wave9
   m_EditorClassIdentifier: 
   enemySpawnInfos:
-  - {fileID: 11400000, guid: cf48c4f6b54b74549b396ddc48e5cca9, type: 2}
+  - {fileID: 11400000, guid: 262a98b1bba143c47b74564bff1859ab, type: 2}
+  - {fileID: 11400000, guid: 4ba3cee5b27f2e84aa8196f1992c168c, type: 2}
+  - {fileID: 11400000, guid: 58e258951d0256b4990c467d36540ed7, type: 2}
   duration: 30
   spawnInterval: 1
   prizeMoney: 0

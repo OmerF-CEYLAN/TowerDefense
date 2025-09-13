@@ -416,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: upgradeCost
-      value: 400
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: towerAnimations
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 0}
   vehicle: {fileID: 1236448218051784667, guid: ddb46a05e24b6cb40ba6a365f0367073, type: 3}
-  spawnTime: 30
+  spawnTime: 20
 --- !u!4 &6858944322356301725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2363858862735582503, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}

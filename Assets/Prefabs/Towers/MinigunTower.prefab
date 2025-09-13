@@ -201,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: b95616f3f9d2da349a0def24a7f31b82, type: 2}
     - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: range
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: fireRate
@@ -213,11 +213,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: startCost
-      value: 500
+      value: 850
       objectReference: {fileID: 0}
     - target: {fileID: 7858594484624350501, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: upgradeCost
-      value: 650
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 8915032066407035711, guid: 4123f4c23f5ea5a44b5a1004aa04bfd3, type: 3}
       propertyPath: body

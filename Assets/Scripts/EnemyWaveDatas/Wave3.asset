@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnInfos:
   - {fileID: 11400000, guid: 117756f2040ca6044af423292b8d09f9, type: 2}
+  - {fileID: 11400000, guid: 8288ef70681ecc745a3efdf7fb5c8e93, type: 2}
   duration: 30
   spawnInterval: 1
   prizeMoney: 0

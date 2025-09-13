@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d2c3fe271a91e47b51373ad29cdf8f, type: 3}
   m_Name: PistolTowerUpgrade1
   m_EditorClassIdentifier: 
-  fireRate: 1
+  fireRate: 0.8
   firePower: 2
-  range: 4
-  upgradeCost: 150
+  range: 5
+  upgradeCost: 80

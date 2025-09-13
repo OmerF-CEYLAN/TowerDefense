@@ -41,6 +41,9 @@ public class WaveManager : MonoBehaviour
 
         counter += Time.deltaTime;
 
+        if (currentWaveIndex > 0 && FindAnyObjectByType<Enemy>() == null)
+            counter = enemyWaves[currentWaveIndex].duration;
+
         if (currentWaveIndex == 0 && counter >= initialWaveDelay)
         {
             enemySpawner.StartEnemySpawn(enemyWaves[currentWaveIndex]);

@@ -490,7 +490,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $ 500
+  m_text: $ 850
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2247,11 +2247,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
-  - {fileID: 11400000, guid: 959b32708c9e33c4ea5daf2d0cf05d03, type: 2}
   - {fileID: 11400000, guid: 6216ff7e717b0be4b86a6bd43aa6807a, type: 2}
   - {fileID: 11400000, guid: a8aaf69bebe5dfe498448a4f922e61c8, type: 2}
   - {fileID: 11400000, guid: a02e2e9bb110fa14cbb542c1e61d4bec, type: 2}
   - {fileID: 11400000, guid: 3e7e6cb750516ef43a8664d5ed71792f, type: 2}
+  - {fileID: 11400000, guid: 959b32708c9e33c4ea5daf2d0cf05d03, type: 2}
+  - {fileID: 11400000, guid: 2cb826ecd72e8cf4d9a27c77f30743b5, type: 2}
+  - {fileID: 11400000, guid: 6289886f3fbd28a4b8abc19c5e0cd7fe, type: 2}
+  - {fileID: 11400000, guid: bc4c8df55262fe84d99e25fee1a2189f, type: 2}
+  - {fileID: 11400000, guid: 64fbe3729d8fc9c43bee4d7b76d40f8f, type: 2}
+  - {fileID: 11400000, guid: c89bcbd368dd494458f2d20c7fd937f5, type: 2}
   enemySpawner: {fileID: 1820375684}
   initialWaveDelay: 0
   clockImage: {fileID: 230593590}
@@ -2320,7 +2325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6597a188e28b694da5238676e66ce46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialMoney: 10000
+  initialMoney: 200
   moneyText: {fileID: 1520391169}
 --- !u!1 &846783023
 GameObject:
