@@ -30,6 +30,7 @@ public class TowerUpgrader : MonoBehaviour
         thisTower.FirePower = upgradeData.firePower;
         thisTower.FireRate = upgradeData.fireRate;
         thisTower.Range = upgradeData.range;
+        thisTower.TotalMoneySoent += upgradeData.upgradeCost;
 
         if(upgradeData is VehicleUpgradeData)
         {

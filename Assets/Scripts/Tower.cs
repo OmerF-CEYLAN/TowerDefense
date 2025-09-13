@@ -9,6 +9,8 @@ public class Tower : TowerBase
 {
     [SerializeField] int startCost, upgradeCost;
 
+    int totalMoneySoent;
+
     public bool IsPlaced { get; set; }
 
     public int StartCost
@@ -23,10 +25,17 @@ public class Tower : TowerBase
         set => upgradeCost = value;
     }
 
+    public int TotalMoneySoent
+    {
+        get => totalMoneySoent;
+        set => totalMoneySoent = value;
+    }
+
 
     private void Start()
     {
         counter = fireRate;
+        totalMoneySoent = startCost;
     }
 
     void Update()

@@ -1,6 +1,8 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class TowerUIController : MonoBehaviour
 {
@@ -19,6 +21,14 @@ public class TowerUIController : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI upgradeText;
 
+    [SerializeField] TextMeshProUGUI sellCostText;
+
+    [SerializeField] Button sellButton;
+
+    [SerializeField] Button upgradeButton;
+
+    TowerPlacementManager placementManager;
+
     Tower thisTower;
 
     [SerializeField] LineRenderer lr;
@@ -36,7 +46,15 @@ public class TowerUIController : MonoBehaviour
     {
         thisTower = GetComponent<Tower>();
         lr.gameObject.SetActive(true);
+        placementManager = GameObject.Find("TowerPlacementManager").GetComponent<TowerPlacementManager>();
         SetTowerUI();
+
+        if (thisTower.IsPlaced == false)
+        {
+            sellButton.interactable = false;
+            upgradeButton.interactable = false;
+        }
+
     }
 
     // Update is called once per frame
@@ -44,6 +62,12 @@ public class TowerUIController : MonoBehaviour
     {
         if (towerUpgradePanel.activeSelf)
         {
+            if (thisTower.IsPlaced)
+            {
+                sellButton.interactable = true;
+                upgradeButton.interactable = true;
+            }
+
             TowerUpgradePanelLookAtPlayer();
             UpdateTotalDamageText();
         }
@@ -73,7 +97,10 @@ public class TowerUIController : MonoBehaviour
         fireRateText.text = "Fire Rate: " + thisTower.FireRate.ToString();
         rangeText.text = "Range: " + thisTower.Range.ToString();
 
-        if(thisTower.UpgradeCost > 0)
+        string moneyBack = ((int)(thisTower.TotalMoneySoent / 2f)).ToString();
+        sellCostText.text = "$ " + moneyBack;
+
+        if (thisTower.UpgradeCost > 0)
             upgradeCostText.text = "$ " + thisTower.UpgradeCost.ToString();
         else if(thisTower.UpgradeCost == 0)
         {
@@ -84,9 +111,9 @@ public class TowerUIController : MonoBehaviour
 
     }
 
-    public void RemoveTower(GameObject towerObject)
+    public void SellTowerButton()
     {
-        Destroy(towerObject);
+        placementManager.RemoveTower(thisTower);
     }
 
     void UpdateTotalDamageText()
@@ -99,6 +126,11 @@ public class TowerUIController : MonoBehaviour
         towerUpgradePanel.transform.LookAt(Camera.main.transform.position);
 
         towerUpgradePanel.transform.Rotate(0, 180, 0);
+    }
+
+    void SetSellText()
+    {
+
     }
 
     public void DrawRangeCircle(float radius)

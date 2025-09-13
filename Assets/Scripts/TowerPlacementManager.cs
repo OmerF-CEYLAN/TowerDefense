@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,6 +8,9 @@ public class TowerPlacementManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> towerPrefabs;
     [SerializeField] List<Button> buttons;
+    [SerializeField] int maxTowerCount;
+    int currentTowerCount;
+    [SerializeField] TextMeshProUGUI towerCountText;
 
     GameObject currentTower;
     Camera cam;
@@ -20,11 +24,19 @@ public class TowerPlacementManager : MonoBehaviour
             int index = i;
             buttons[i].onClick.AddListener(() => StartPlacingTower(towerPrefabs[index]));
         }
+
+        SetTowerCountText();
     }
 
     void Update()
     {
         LockButtonsIfNotEnoughMoney();
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Destroy(currentTower);
+            currentTower = null;
+        }
 
         if (currentTower == null) return;
 
@@ -54,6 +66,8 @@ public class TowerPlacementManager : MonoBehaviour
     {
         if (currentTower == null) return;
 
+        if (currentTowerCount >= maxTowerCount)
+            return;
         
         Tower towerScript = currentTower.GetComponent<Tower>();
 
@@ -68,6 +82,10 @@ public class TowerPlacementManager : MonoBehaviour
         {
             MoneyManager.Instance.SpendMoney(towerScript.StartCost);
 
+            currentTowerCount++;
+
+            SetTowerCountText();
+
             towerScript.IsPlaced = true;
 
             currentTower.GetComponent<Collider>().enabled = true;
@@ -75,6 +93,19 @@ public class TowerPlacementManager : MonoBehaviour
             currentTower = null;
         }
 
+    }
+    public void RemoveTower(Tower tower)
+    {
+        int moneyBackCost = (int)(tower.TotalMoneySoent / 2f);
+        MoneyManager.Instance.AddMoney(moneyBackCost);
+        currentTowerCount--;
+        SetTowerCountText();
+        Destroy(tower.gameObject);
+    }
+
+    void SetTowerCountText()
+    {
+        towerCountText.text = currentTowerCount + " / " + maxTowerCount;
     }
 
     void LockButtonsIfNotEnoughMoney()
