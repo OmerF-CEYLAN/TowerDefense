@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770761d304704b8478336048f1b340f6, type: 3}
+  m_Name: Wave11
+  m_EditorClassIdentifier: 
+  enemySpawnInfos:
+  - {fileID: 11400000, guid: a27500f3dc5763c4da7a1a26aaa99b34, type: 2}
+  - {fileID: 11400000, guid: d818fe94833469a4c9d01cb3db6c34ae, type: 2}
+  - {fileID: 11400000, guid: 4e8191c49338dd34d977fdf3b9ce8de5, type: 2}
+  duration: 30
+  spawnInterval: 1
+  prizeMoney: 0

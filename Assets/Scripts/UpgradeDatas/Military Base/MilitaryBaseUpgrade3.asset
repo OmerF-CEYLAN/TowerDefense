@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MilitaryBaseUpgrade3
   m_EditorClassIdentifier: 
   fireRate: 0.5
-  firePower: 1
+  firePower: 2
   range: 7
-  upgradeCost: 450
+  upgradeCost: 700
   speed: 2
   health: 100

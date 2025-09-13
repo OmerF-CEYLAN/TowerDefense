@@ -2247,6 +2247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
+  - {fileID: 11400000, guid: 59a7e5c4ca23ac2409913ad5c374f54b, type: 2}
   - {fileID: 11400000, guid: 6216ff7e717b0be4b86a6bd43aa6807a, type: 2}
   - {fileID: 11400000, guid: a8aaf69bebe5dfe498448a4f922e61c8, type: 2}
   - {fileID: 11400000, guid: a02e2e9bb110fa14cbb542c1e61d4bec, type: 2}
@@ -2257,6 +2258,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bc4c8df55262fe84d99e25fee1a2189f, type: 2}
   - {fileID: 11400000, guid: 64fbe3729d8fc9c43bee4d7b76d40f8f, type: 2}
   - {fileID: 11400000, guid: c89bcbd368dd494458f2d20c7fd937f5, type: 2}
+  - {fileID: 11400000, guid: bce4dda6decc9fd448d92556118507d2, type: 2}
+  - {fileID: 11400000, guid: 8bad820a840b62e45a29283f4b75cd78, type: 2}
+  - {fileID: 11400000, guid: e8fa7f2a16fe93d42af082e1cb9e7996, type: 2}
+  - {fileID: 11400000, guid: ec4f481ac3ea6c4479fa6cfca2b53068, type: 2}
   enemySpawner: {fileID: 1820375684}
   initialWaveDelay: 0
   clockImage: {fileID: 230593590}
