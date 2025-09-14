@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class Vehicle : TowerBase
 {
+    [SerializeField] AudioClip crashSound;
+    [SerializeField] AudioClip explosionSound;
+    [SerializeField] GameObject explosionObject;
+    [SerializeField] Renderer vehicleRenderer;
+
     [SerializeField] float speed;
     [SerializeField] int health;
     int maxHealth;
@@ -21,6 +26,8 @@ public class Vehicle : TowerBase
     [SerializeField] LineRenderer lr;
 
     [SerializeField] List<GameObject> tires;
+
+    [SerializeField] float destroyDelay;
 
     int currentPathIndex;
 
@@ -40,6 +47,8 @@ public class Vehicle : TowerBase
 
     void Start()
     {
+        explosionObject.SetActive(false);
+
         lr.startWidth = lineWidth;
         lr.endWidth = lineWidth;
 
@@ -53,13 +62,32 @@ public class Vehicle : TowerBase
 
     void Update()
     {
-        RotateTires();
-
         if (health <= 0)
         {
-            Destroy(gameObject);
+            audioSource.PlayOneShot(explosionSound);
+            explosionObject.SetActive(true);
+
+            foreach (GameObject tire in tires)
+            {
+                tire.SetActive(false);
+            }
+
+            float randonAngle = Random.Range(-45f, 45f);
+            transform.Rotate(Vector3.up * randonAngle);
+
+            rb.linearVelocity = transform.forward * speed;
+
+            vehicleRenderer.material.DOColor(Color.black, 1f);
+
+            DOTween.To(() => rb.linearVelocity, x => rb.linearVelocity = x, Vector3.zero, destroyDelay / 1.5f);
+
+            Destroy(gameObject, destroyDelay);
+
+            this.enabled = false;
+            return;
         }
 
+        RotateTires();
         DetectEnemyInRange();
         HitTarget();
         Move();
@@ -108,6 +136,8 @@ public class Vehicle : TowerBase
                 counter = 0f;
                 int dealedDamage = target.GetHit(firePower);
 
+                audioSource.PlayOneShot(shotSound);
+
                 totalDamage += dealedDamage;
 
                 militaryBaseTower.TotalDamage += dealedDamage;
@@ -118,13 +148,15 @@ public class Vehicle : TowerBase
         }
     }
 
-    public void CrashToEnemies(Enemy crashedEnemy)
+    public void CrashToEnemy(Enemy crashedEnemy)
     {
         int dealedDamage = health >= crashedEnemy.HitPoint ? crashedEnemy.HitPoint : health;
 
         health -= dealedDamage;
 
         militaryBaseTower.TotalDamage += dealedDamage;
+
+        audioSource.PlayOneShot(crashSound);
 
         MoneyManager.Instance.AddMoney(dealedDamage);
 
@@ -140,7 +172,7 @@ public class Vehicle : TowerBase
 
         if(other.gameObject.TryGetComponent(out Enemy enemy))
         {
-            CrashToEnemies(enemy);
+            CrashToEnemy(enemy);
         }
     }
 

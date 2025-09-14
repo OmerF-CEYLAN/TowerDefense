@@ -15,6 +15,6 @@ MonoBehaviour:
   enemySpawnInfos:
   - {fileID: 11400000, guid: 12e84e216fd81bc4787ed42945149fc0, type: 2}
   - {fileID: 11400000, guid: a8482a272921d5645a3c9ef4855eb89e, type: 2}
-  duration: 30
+  duration: 40
   spawnInterval: 1
-  prizeMoney: 0
+  prizeMoney: 50

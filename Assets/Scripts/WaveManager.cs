@@ -57,6 +57,7 @@ public class WaveManager : MonoBehaviour
         }
         else if (counter >= enemyWaves[currentWaveIndex].duration)
         {
+            MoneyManager.Instance.AddMoney(enemyWaves[currentWaveIndex - 1].prizeMoney); // this causes last wave to doesn't give money after finished which is valid
 
             enemySpawner.StartEnemySpawn(enemyWaves[currentWaveIndex]);
 
@@ -84,5 +85,18 @@ public class WaveManager : MonoBehaviour
         waveText.text = "Wave " + (currentWaveIndex);
     }
 
+    public void SkipWaveWait()
+    {
+        if (currentWaveIndex >= enemyWaves.Count)
+            return;
+
+        if(currentWaveIndex == 0)
+        {
+            counter = initialWaveDelay;
+            return;
+        }
+
+        counter = enemyWaves[currentWaveIndex].duration;
+    }
 
 }

@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UIElements;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
@@ -48,6 +49,31 @@ public class Tower : TowerBase
 
         DetectEnemyInRange();
         HitTarget();
+    }
+
+    override protected void HitTarget()
+    {
+        counter += Time.deltaTime;
+
+        if (target != null)
+        {
+            if (counter >= fireRate)
+            {
+                transform.LookAt(target.transform.position);
+
+                towerAnimations.ShootAnim();
+
+                audioSource.PlayOneShot(shotSound);
+
+                counter = 0f;
+                int dealedDamage = target.GetHit(firePower);
+
+                MoneyManager.Instance.AddMoney(dealedDamage);
+
+                totalDamage += dealedDamage;
+            }
+
+        }
     }
 
 

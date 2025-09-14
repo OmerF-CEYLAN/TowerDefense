@@ -8,6 +8,8 @@ public abstract class TowerBase : MonoBehaviour
     [SerializeField] protected float fireRate, range;
     [SerializeField] protected int firePower,totalDamage;
     [SerializeField] protected TowerAnimations towerAnimations;
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected AudioClip shotSound;
     protected int tier;
 
     protected List<Enemy> targetsInRange = new List<Enemy>();
