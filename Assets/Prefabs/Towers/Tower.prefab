@@ -1379,9 +1379,10 @@ MonoBehaviour:
   totalDamage: 0
   towerAnimations: {fileID: 8915032066407035711}
   audioSource: {fileID: 2255703963550796612}
+  shotSound: {fileID: 0}
   startCost: 0
   upgradeCost: 0
-  shotSound: {fileID: 0}
+  shotEffect: {fileID: 0}
 --- !u!114 &9189355308688365946
 MonoBehaviour:
   m_ObjectHideFlags: 0
