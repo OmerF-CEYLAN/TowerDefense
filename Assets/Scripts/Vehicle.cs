@@ -8,8 +8,10 @@ public class Vehicle : TowerBase
 {
     [SerializeField] AudioClip crashSound;
     [SerializeField] AudioClip explosionSound;
+    [SerializeField] AudioClip engineSound;
     [SerializeField] GameObject explosionObject;
     [SerializeField] Renderer vehicleRenderer;
+    [SerializeField] GameObject shotEffectObject;
 
     [SerializeField] float speed;
     [SerializeField] int health;
@@ -47,6 +49,12 @@ public class Vehicle : TowerBase
 
     void Start()
     {
+        audioSource.clip = engineSound;
+
+        audioSource.Play();
+
+        audioSource.loop = true;
+
         explosionObject.SetActive(false);
 
         lr.startWidth = lineWidth;
@@ -64,6 +72,13 @@ public class Vehicle : TowerBase
     {
         if (health <= 0)
         {
+            SetHealthUI();
+
+            GetComponent<Collider>().enabled = false;
+
+            audioSource.loop = false;
+            audioSource.Stop();
+
             audioSource.PlayOneShot(explosionSound);
             explosionObject.SetActive(true);
 
@@ -132,11 +147,11 @@ public class Vehicle : TowerBase
         {
             if (counter >= fireRate)
             {
-
                 counter = 0f;
                 int dealedDamage = target.GetHit(firePower);
 
                 audioSource.PlayOneShot(shotSound);
+                ShotEffectActivation();
 
                 totalDamage += dealedDamage;
 
@@ -154,6 +169,8 @@ public class Vehicle : TowerBase
 
         health -= dealedDamage;
 
+        health = Mathf.Clamp(health, 0,200);
+
         militaryBaseTower.TotalDamage += dealedDamage;
 
         audioSource.PlayOneShot(crashSound);
@@ -161,6 +178,13 @@ public class Vehicle : TowerBase
         MoneyManager.Instance.AddMoney(dealedDamage);
 
         crashedEnemy.GetHit(dealedDamage);
+    }
+
+    void ShotEffectActivation()
+    {
+        ParticleSystem ps = shotEffectObject.GetComponent<ParticleSystem>();
+
+        ps.Play();
     }
 
     private void OnTriggerEnter(Collider other)

@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
+    - target: {fileID: 6003399110825287653, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8114054169588839010, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
       propertyPath: m_Radius
       value: 0.2

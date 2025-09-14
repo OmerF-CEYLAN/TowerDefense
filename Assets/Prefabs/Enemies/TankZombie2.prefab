@@ -98,9 +98,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: TankZombie2
       objectReference: {fileID: 0}
+    - target: {fileID: 5899998793719611161, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899998793719611161, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899998793719611161, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899998793719611161, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.51
+      objectReference: {fileID: 0}
     - target: {fileID: 6058014125376160747, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403872580185719140, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
+      propertyPath: m_Pitch
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403872580185719140, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
+      propertyPath: m_Volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8114054169588839010, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
       propertyPath: m_Height

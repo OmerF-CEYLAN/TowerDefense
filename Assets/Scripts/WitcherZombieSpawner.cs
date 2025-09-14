@@ -5,16 +5,22 @@ using UnityEngine;
 
 public class WitcherZombieSpawner : MonoBehaviour
 {
-    [SerializeField] float spawnTime;
+    float spawnTime;
 
     [SerializeField] GameObject spawnPoint;
 
     [SerializeField] List<GameObject> enemiesToSpawn;
 
+    [SerializeField] GameObject spawnEffect;
+
     Enemy thisEnemy;
 
     void Start()
     {
+        spawnEffect.SetActive(false);
+
+        spawnTime = Random.Range(5f, 10f);
+
         thisEnemy = GetComponent<Enemy>();
 
         StartCoroutine(SpawnEnemies());
@@ -29,11 +35,19 @@ public class WitcherZombieSpawner : MonoBehaviour
     {
         while (true)
         {
+            spawnTime = Random.Range(5f, 10f);
+
             GameObject selectedEnemyObj = enemiesToSpawn[Random.Range(0, enemiesToSpawn.Count)];
 
             GameObject spawnedEnemyObj = Instantiate(selectedEnemyObj, spawnPoint.transform.position, Quaternion.identity);
 
-            if(thisEnemy.GetDistanceToNextPath() <= Vector3.Distance(transform.position, spawnPoint.transform.position))
+            spawnEffect.SetActive(true);
+
+            yield return new WaitForSeconds(1f);
+
+            spawnEffect.SetActive(false);
+
+            if (thisEnemy.GetDistanceToNextPath() <= Vector3.Distance(transform.position, spawnPoint.transform.position))
             {
                 spawnedEnemyObj.GetComponent<Enemy>().currentPathIndex = thisEnemy.currentPathIndex < PathHolder.Instance.pathPoints.Count - 1
                 ? thisEnemy.currentPathIndex + 1
@@ -45,6 +59,7 @@ public class WitcherZombieSpawner : MonoBehaviour
             }
 
             yield return new WaitForSeconds(spawnTime);
+
         }
 
     }

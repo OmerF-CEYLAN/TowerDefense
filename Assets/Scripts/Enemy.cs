@@ -1,4 +1,7 @@
 using DG.Tweening;
+using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +25,16 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] float barChangeSpeed;
 
+    [SerializeField] GameObject bloodEffect;
+
+    [SerializeField] List<AudioClip> zombieSounds;
+
+    [SerializeField] AudioSource audioSource;
+
+    float soundRate;
+
+    float counter;
+
     public int currentPathIndex = 1;
 
     Rigidbody rb;
@@ -32,6 +45,8 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        soundRate = Random.Range(5f, 25f);
+
         rb = GetComponent<Rigidbody>();
         transform.LookAt(PathHolder.Instance.pathPoints[currentPathIndex].position);
         rb.linearVelocity = speed * transform.forward;
@@ -48,6 +63,8 @@ public class Enemy : MonoBehaviour
         }
 
         Move();
+
+        MakeSound();
 
         if (HitPointPanel.activeSelf)
         {
@@ -82,9 +99,29 @@ public class Enemy : MonoBehaviour
 
     }
 
+    void MakeSound()
+    {
+        counter += Time.deltaTime;
+
+        if(counter >= soundRate)
+        {
+            counter = 0;
+            soundRate = Random.Range(10f, 25f);
+
+            AudioClip selectedClip = zombieSounds[Random.Range(0, zombieSounds.Count)];
+
+            audioSource.PlayOneShot(selectedClip);
+        }
+
+
+
+    }
+
     public int GetHit(int damage)
     {
         if (hitPoint <= 0) return 0;
+
+        BloodEffectActivation();
 
         int hitPointBeforeHit = hitPoint; 
 
@@ -95,6 +132,13 @@ public class Enemy : MonoBehaviour
         else 
             return hitPointBeforeHit;
 
+    }
+
+    void BloodEffectActivation()
+    {
+        ParticleSystem ps = bloodEffect.GetComponent<ParticleSystem>();
+
+        ps.Play();
     }
 
     private void OnTriggerEnter(Collider other)
