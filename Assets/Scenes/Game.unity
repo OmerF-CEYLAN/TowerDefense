@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
-  m_FogDensity: 0.01
+  m_Fog: 1
+  m_FogColor: {r: 1, g: 0.3372549, b: 0.2392157, a: 1}
+  m_FogMode: 2
+  m_FogDensity: 0.005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: eea6dc32b86944868a305f6c94f8d7e4, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -2284,6 +2284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
+  - {fileID: 11400000, guid: 59a7e5c4ca23ac2409913ad5c374f54b, type: 2}
   - {fileID: 11400000, guid: 6216ff7e717b0be4b86a6bd43aa6807a, type: 2}
   - {fileID: 11400000, guid: a8aaf69bebe5dfe498448a4f922e61c8, type: 2}
   - {fileID: 11400000, guid: a02e2e9bb110fa14cbb542c1e61d4bec, type: 2}
@@ -2298,7 +2299,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8bad820a840b62e45a29283f4b75cd78, type: 2}
   - {fileID: 11400000, guid: e8fa7f2a16fe93d42af082e1cb9e7996, type: 2}
   - {fileID: 11400000, guid: ec4f481ac3ea6c4479fa6cfca2b53068, type: 2}
-  - {fileID: 11400000, guid: 59a7e5c4ca23ac2409913ad5c374f54b, type: 2}
   enemySpawner: {fileID: 1820375684}
   initialWaveDelay: 20
   clockImage: {fileID: 230593590}
