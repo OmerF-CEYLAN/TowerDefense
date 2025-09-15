@@ -41,12 +41,6 @@ public class WitcherZombieSpawner : MonoBehaviour
 
             GameObject spawnedEnemyObj = Instantiate(selectedEnemyObj, spawnPoint.transform.position, Quaternion.identity);
 
-            spawnEffect.SetActive(true);
-
-            yield return new WaitForSeconds(1f);
-
-            spawnEffect.SetActive(false);
-
             if (thisEnemy.GetDistanceToNextPath() <= Vector3.Distance(transform.position, spawnPoint.transform.position))
             {
                 spawnedEnemyObj.GetComponent<Enemy>().currentPathIndex = thisEnemy.currentPathIndex < PathHolder.Instance.pathPoints.Count - 1
@@ -57,6 +51,12 @@ public class WitcherZombieSpawner : MonoBehaviour
             {
                 spawnedEnemyObj.GetComponent<Enemy>().currentPathIndex = thisEnemy.currentPathIndex;
             }
+
+            spawnEffect.SetActive(true);
+
+            yield return new WaitForSeconds(1f);
+
+            spawnEffect.SetActive(false);
 
             yield return new WaitForSeconds(spawnTime);
 
