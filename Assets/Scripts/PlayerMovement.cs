@@ -16,9 +16,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
 
         rb = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -58,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(isGrounded)
         {
+            Debug.Log("JUMPING");
+
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
  

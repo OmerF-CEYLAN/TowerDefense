@@ -6,18 +6,28 @@ public class InputHandler : MonoBehaviour
 {
     private PlayerInputs playerInputs;
 
-    private void Awake()
+    private void OnEnable()
     {
-        playerInputs = new PlayerInputs();
-        playerInputs.Player.Enable();
+        if (playerInputs == null)
+        {
+            playerInputs = new PlayerInputs();
+        }
 
+        playerInputs.Player.Enable();
         playerInputs.Player.Jump.performed += HandlePlayerJump;
+    }
+
+    private void OnDisable()
+    {
+        playerInputs.Player.Jump.performed -= HandlePlayerJump;
+        playerInputs.Player.Disable();
     }
 
     private void HandlePlayerJump(InputAction.CallbackContext context)
     {
         if (context.ReadValueAsButton())
         {
+            Debug.Log("JUMP VALUE READ");
             PlayerMovement.Instance.Jump();
         }
     }
