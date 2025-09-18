@@ -17,4 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dac69a59e8897bd4fbecf1a15fc9ca97, type: 2}
   duration: 60
   spawnInterval: 0.7
-  prizeMoney: 650
+  prizeMoney: 90
