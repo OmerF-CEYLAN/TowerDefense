@@ -27,7 +27,6 @@ public class InputHandler : MonoBehaviour
     {
         if (context.ReadValueAsButton())
         {
-            Debug.Log("JUMP VALUE READ");
             PlayerMovement.Instance.Jump();
         }
     }

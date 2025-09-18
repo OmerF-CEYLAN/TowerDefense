@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770761d304704b8478336048f1b340f6, type: 3}
+  m_Name: Wave29
+  m_EditorClassIdentifier: 
+  enemySpawnInfos:
+  - {fileID: 11400000, guid: 498a8bc84dc5f4c478777fb9eb45e383, type: 2}
+  - {fileID: 11400000, guid: e0b78f5decc6e774784349e3147f7a2f, type: 2}
+  - {fileID: 11400000, guid: 56f5f72ebda758c4fa6ff1fb37b99092, type: 2}
+  - {fileID: 11400000, guid: 058da9979dbe51e419e29753c0210329, type: 2}
+  duration: 80
+  spawnInterval: 0.5
+  prizeMoney: 1100

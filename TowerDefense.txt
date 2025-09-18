@@ -1,0 +1,1308 @@
+## GÜN 1: Proje Kurulumu ve Temel Yapı
+
+### Yapılan İşler:
+- Unity 2022.3 LTS sürümü ile yeni proje oluşturuldu
+- Proje klasör yapısı organize edildi:
+  - `Assets/Scripts/` - Tüm C# scriptleri
+  - `Assets/Prefabs/` - Oyun nesneleri prefabları
+  - `Assets/Scenes/` - Oyun sahneleri
+  - `Assets/Materials/` - Materyaller
+  - `Assets/Models/` - 3D modeller
+  - `Assets/Sounds/` - Ses dosyaları
+
+### Kod Geliştirmeleri:
+```csharp
+// PathHolder.cs - Oyun yolunu tutan singleton sınıf
+public class PathHolder : MonoBehaviour
+{
+    public List<Transform> pathPoints;
+    public static PathHolder Instance;
+    
+    private void Awake()
+    {
+        if(Instance != null && Instance!= this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+}
+```
+
+### Teknik Detaylar:
+- Singleton pattern kullanılarak PathHolder sınıfı oluşturuldu
+- Oyun yolunu tutan Transform listesi tanımlandı
+- Scene'de path point'ler manuel olarak yerleştirildi
+
+---
+
+## GÜN 2: Temel Oyun Yönetimi Sistemi
+
+### Yapılan İşler:
+- GameManager sınıfı oluşturuldu
+- UIManager sınıfı geliştirildi
+- Scene yönetimi sistemi kuruldu
+
+### Kod Geliştirmeleri:
+```csharp
+// GameManager.cs - Ana oyun yöneticisi
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
+    [SerializeField] UIManager uiManager;
+
+    private void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+    public void OnGameWin()
+    {
+        // Oyun kazanma durumu
+    }
+    
+    public void OnGameLose()
+    {
+        uiManager.SetLoseUI();
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+}
+```
+
+### Teknik Detaylar:
+- Singleton pattern ile GameManager oluşturuldu
+- Scene yeniden yükleme fonksiyonu eklendi
+- UI yönetimi için UIManager entegrasyonu yapıldı
+
+---
+
+## GÜN 3: Para Sistemi ve UI Yönetimi
+
+### Yapılan İşler:
+- MoneyManager sınıfı geliştirildi
+- Para ekleme/çıkarma sistemi kuruldu
+- UI güncelleme mekanizması oluşturuldu
+
+### Kod Geliştirmeleri:
+```csharp
+// MoneyManager.cs - Para yönetim sistemi
+public class MoneyManager : MonoBehaviour
+{
+    [SerializeField] int initialMoney;
+    [SerializeField] TextMeshProUGUI moneyText;
+    int currentMoney;
+    public static MoneyManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+    public void AddMoney(int amount)
+    {
+        currentMoney += amount;
+        OnMoneyChange();
+    }
+
+    public void SpendMoney(int cost)
+    {
+        currentMoney -= cost;
+        OnMoneyChange();
+    }
+
+    public bool HaveEnoughMoney(int cost)
+    {
+        return cost <= currentMoney;
+    }
+
+    void SetMoneyUI()
+    {
+        moneyText.text = "$ " + currentMoney.ToString();
+    }
+}
+```
+
+### Teknik Detaylar:
+- Singleton pattern ile MoneyManager oluşturuldu
+- Para ekleme/çıkarma fonksiyonları eklendi
+- UI otomatik güncelleme sistemi kuruldu
+- Başlangıç para miktarı ayarlanabilir hale getirildi
+
+---
+
+## GÜN 4: Oyuncu Sağlık Sistemi
+
+### Yapılan İşler:
+- PlayerHealthHandler sınıfı oluşturuldu
+- Sağlık barı animasyonu eklendi
+- DOTween kütüphanesi entegre edildi
+
+### Kod Geliştirmeleri:
+```csharp
+// PlayerHealthHandler.cs - Oyuncu sağlık yönetimi
+public class PlayerHealthHandler : MonoBehaviour
+{
+    [SerializeField] int health;
+    int maxHealth;
+    public int Health { get => health; set => health = value; }
+    public static PlayerHealthHandler Instance;
+
+    [SerializeField] TextMeshProUGUI healthText;
+    [SerializeField] Image healthBar;
+    [SerializeField] float barChangeSpeed;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+        maxHealth = health;
+    }
+
+    void Update()
+    {
+        if(health < 0)
+        {
+            health = 0;
+            GameManager.Instance.OnGameLose();
+        }
+    }
+
+    public void SetHealthText()
+    {
+        healthText.text = health + " / " + maxHealth;
+        DOTween.To(() => healthBar.fillAmount, x => healthBar.fillAmount = x, 
+                   (float)health / maxHealth, barChangeSpeed);
+    }
+}
+```
+
+### Teknik Detaylar:
+- Singleton pattern ile PlayerHealthHandler oluşturuldu
+- DOTween ile smooth sağlık barı animasyonu eklendi
+- Sağlık sıfırlandığında otomatik oyun kaybetme sistemi
+- UI güncelleme fonksiyonu eklendi
+
+---
+
+## GÜN 5: Temel Düşman Sistemi
+
+### Yapılan İşler:
+- Enemy sınıfı oluşturuldu
+- Düşman hareket sistemi geliştirildi
+- Düşman sağlık sistemi kuruldu
+
+### Kod Geliştirmeleri:
+```csharp
+// Enemy.cs - Düşman temel sınıfı
+public class Enemy : MonoBehaviour
+{
+    [SerializeField] float speed;
+    [SerializeField] int hitPoint;
+    int maxHitPoint;
+    [SerializeField] GameObject HitPointPanel;
+    [SerializeField] TextMeshProUGUI hitPointText;
+    [SerializeField] Image hitpointBar;
+    [SerializeField] float barChangeSpeed;
+    [SerializeField] GameObject bloodEffect;
+    [SerializeField] List<AudioClip> zombieSounds;
+    [SerializeField] AudioSource audioSource;
+    
+    public int currentPathIndex = 1;
+    Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        transform.LookAt(PathHolder.Instance.pathPoints[currentPathIndex].position);
+        rb.linearVelocity = speed * transform.forward;
+        maxHitPoint = hitPoint;
+    }
+
+    void Move()
+    {
+        if (currentPathIndex >= PathHolder.Instance.pathPoints.Count)
+            return;
+
+        Transform target = PathHolder.Instance.pathPoints[currentPathIndex];
+        Vector3 dir = (target.position - transform.position).normalized;
+        rb.linearVelocity = dir * speed;
+
+        float distance = Vector3.Distance(transform.position, target.position);
+        if (distance <= speed * Time.deltaTime)
+        {
+            currentPathIndex++;
+            if (currentPathIndex < PathHolder.Instance.pathPoints.Count)
+            {
+                transform.LookAt(PathHolder.Instance.pathPoints[currentPathIndex].position);
+            }
+        }
+    }
+
+    public int GetHit(int damage)
+    {
+        if (hitPoint <= 0) return 0;
+
+        BloodEffectActivation();
+        int hitPointBeforeHit = hitPoint; 
+        hitPoint -= damage;
+
+        if (hitPointBeforeHit >= damage)
+            return damage;
+        else 
+            return hitPointBeforeHit;
+    }
+}
+```
+
+### Teknik Detaylar:
+- Rigidbody tabanlı düşman hareket sistemi
+- PathHolder kullanarak yol takip sistemi
+- Kan efekti ve ses sistemi entegrasyonu
+- DOTween ile sağlık barı animasyonu
+- Düşman ölümü ve hasar hesaplama sistemi
+
+---
+
+## GÜN 6: Kule Sistemi Temel Yapısı
+
+### Yapılan İşler:
+- TowerBase abstract sınıfı oluşturuldu
+- Tower sınıfı geliştirildi
+- Kule hedefleme sistemi kuruldu
+
+### Kod Geliştirmeleri:
+```csharp
+// TowerBase.cs - Kule temel sınıfı
+public abstract class TowerBase : MonoBehaviour
+{
+    [SerializeField] protected float fireRate, range;
+    [SerializeField] protected int firePower, totalDamage;
+    [SerializeField] protected TowerAnimations towerAnimations;
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected AudioClip shotSound;
+    protected int tier;
+
+    protected List<Enemy> targetsInRange = new List<Enemy>();
+    protected Enemy target;
+    protected float counter;
+
+    protected virtual void DetectEnemyInRange()
+    {
+        Vector3 rangeCheckPos = transform.position;
+        rangeCheckPos.y = 0;
+
+        Collider[] enemyColliders = Physics.OverlapSphere(rangeCheckPos, range, LayerMask.GetMask("Enemy"));
+
+        targetsInRange.RemoveAll(e => e == null || enemyColliders.Contains(e.GetComponent<Collider>()) == false);
+
+        foreach (var col in enemyColliders)
+        {
+            Enemy enemy = col.GetComponent<Enemy>();
+            if (enemy != null && targetsInRange.Contains(enemy) == false)
+            {
+                targetsInRange.Add(enemy);
+            }
+        }
+
+        target = targetsInRange
+                .OrderByDescending(e => e.currentPathIndex)
+                .ThenBy(e => e.GetDistanceToNextPath())
+                .FirstOrDefault();
+    }
+
+    protected virtual void HitTarget() 
+    {
+        // Alt sınıflarda override edilecek
+    }
+}
+```
+
+### Teknik Detaylar:
+- Abstract sınıf ile kule temel yapısı oluşturuldu
+- Physics.OverlapSphere ile düşman algılama sistemi
+- LINQ kullanarak hedef seçim algoritması
+- Düşmanları path index'e göre önceliklendirme
+- Audio ve animasyon sistemleri entegrasyonu
+
+---
+
+## GÜN 7: Kule Yerleştirme Sistemi
+
+### Yapılan İşler:
+- TowerPlacementManager sınıfı oluşturuldu
+- Mouse ile kule yerleştirme sistemi geliştirildi
+- Kule sayısı sınırlaması eklendi
+
+### Kod Geliştirmeleri:
+```csharp
+// TowerPlacementManager.cs - Kule yerleştirme yöneticisi
+public class TowerPlacementManager : MonoBehaviour
+{
+    [SerializeField] List<GameObject> towerPrefabs;
+    [SerializeField] List<Button> buttons;
+    [SerializeField] int maxTowerCount;
+    int currentTowerCount;
+    [SerializeField] TextMeshProUGUI towerCountText;
+
+    GameObject currentTower;
+    Camera cam;
+
+    void Start()
+    {
+        cam = Camera.main;
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            int index = i;
+            buttons[i].onClick.AddListener(() => StartPlacingTower(towerPrefabs[index]));
+        }
+        SetTowerCountText();
+    }
+
+    void Update()
+    {
+        LockButtonsIfNotEnoughMoney();
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Destroy(currentTower);
+            currentTower = null;
+        }
+
+        if (currentTower == null) return;
+
+        // Mouse pozisyonunu güncelle
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, 10f, LayerMask.GetMask("Ground")))
+        {
+            currentTower.transform.position = hit.point + Vector3.up * (currentTower.transform.localScale.y/2f);
+        }
+
+        // Sol click ile yerleştir
+        if (EventSystem.current.IsPointerOverGameObject() == false && Input.GetMouseButtonDown(0))
+        {
+            PlaceTower();
+        }
+    }
+
+    void StartPlacingTower(GameObject towerPrefab)
+    {
+        if (currentTower != null) Destroy(currentTower);
+        currentTower = Instantiate(towerPrefab);
+    }
+}
+```
+
+### Teknik Detaylar:
+- Raycast ile mouse pozisyonu takibi
+- EventSystem ile UI üzerinde tıklama kontrolü
+- Kule sayısı sınırlaması sistemi
+- ESC tuşu ile iptal etme özelliği
+- Para kontrolü ile buton kilitleme sistemi
+
+---
+
+## GÜN 8: Kule Yükseltme Sistemi
+
+### Yapılan İşler:
+- TowerUpgrader sınıfı oluşturuldu
+- UpgradeData ScriptableObject sistemi kuruldu
+- Kule yükseltme UI'ı geliştirildi
+
+### Kod Geliştirmeleri:
+```csharp
+// TowerUpgrader.cs - Kule yükseltme sistemi
+public class TowerUpgrader : MonoBehaviour
+{
+    [SerializeField] List<UpgradeData> upgradeDatas;
+    Tower thisTower;
+
+    private void Start()
+    {
+        thisTower = GetComponent<Tower>();
+    }
+
+    public void UpgradeTower()
+    {
+        if (thisTower.Tier >= upgradeDatas.Count)
+            return;
+
+        UpgradeData upgradeData = upgradeDatas[thisTower.Tier];
+
+        if (MoneyManager.Instance.HaveEnoughMoney(upgradeData.upgradeCost) == false)
+            return;
+
+        MoneyManager.Instance.SpendMoney(upgradeData.upgradeCost);
+        thisTower.FirePower = upgradeData.firePower;
+        thisTower.FireRate = upgradeData.fireRate;
+        thisTower.Range = upgradeData.range;
+        thisTower.TotalMoneySoent += upgradeData.upgradeCost;
+
+        if(upgradeData is VehicleUpgradeData)
+        {
+            if(thisTower.TryGetComponent(out VehicleSpawner vehicleSpawner))
+            {
+                VehicleUpgradeData vehicleUpgradeData = upgradeData as VehicleUpgradeData;
+                vehicleSpawner.SetVehicleData(vehicleUpgradeData);
+            }
+        }
+
+        thisTower.Tier++;
+        thisTower.GetComponent<TowerUIController>().SetTowerUI();
+    }
+}
+
+// UpgradeData.cs - Yükseltme verisi
+[CreateAssetMenu(fileName = "MYAssets",menuName = "UpgradeData")]
+public class UpgradeData : ScriptableObject
+{
+    public float fireRate;
+    public int firePower;
+    public float range;
+    public int upgradeCost;
+}
+```
+
+### Teknik Detaylar:
+- ScriptableObject ile yükseltme verisi sistemi
+- Para kontrolü ile yükseltme onayı
+- Kule tier sistemi ve maksimum yükseltme kontrolü
+- VehicleUpgradeData ile özel araç yükseltmeleri
+- UI otomatik güncelleme sistemi
+
+---
+
+## GÜN 9: Kule UI Kontrol Sistemi
+
+### Yapılan İşler:
+- TowerUIController sınıfı oluşturuldu
+- Kule bilgi paneli geliştirildi
+- Menzil göstergesi eklendi
+
+### Kod Geliştirmeleri:
+```csharp
+// TowerUIController.cs - Kule UI kontrolü
+public class TowerUIController : MonoBehaviour
+{
+    [SerializeField] GameObject towerUpgradePanel;
+    [SerializeField] TextMeshProUGUI firePowerText;
+    [SerializeField] TextMeshProUGUI fireRateText;
+    [SerializeField] TextMeshProUGUI rangeText;
+    [SerializeField] TextMeshProUGUI totalDamageText;
+    [SerializeField] TextMeshProUGUI upgradeCostText;
+    [SerializeField] TextMeshProUGUI upgradeText;
+    [SerializeField] TextMeshProUGUI sellCostText;
+    [SerializeField] Button sellButton;
+    [SerializeField] Button upgradeButton;
+    [SerializeField] LineRenderer lr;
+    [SerializeField] int segments = 60;
+    [SerializeField] float lineWidth = 0.05f;
+
+    Tower thisTower;
+
+    void Start()
+    {
+        thisTower = GetComponent<Tower>();
+        lr.gameObject.SetActive(true);
+        SetTowerUI();
+
+        if (thisTower.IsPlaced == false)
+        {
+            sellButton.interactable = false;
+            upgradeButton.interactable = false;
+        }
+    }
+
+    public void OnTowerUIEnabled()
+    {
+        towerUpgradePanel.SetActive(true);
+        lr.gameObject.SetActive(true);
+        SetTowerUI();
+    }
+
+    public void OnTowerUIDisabled()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+        towerUpgradePanel.SetActive(false);
+        lr.gameObject.SetActive(false);
+    }
+
+    public void SetTowerUI()
+    {
+        DrawRangeCircle(thisTower.Range);
+        firePowerText.text = "Fire Power: " + thisTower.FirePower.ToString();
+        fireRateText.text = "Fire Rate: " + thisTower.FireRate.ToString();
+        rangeText.text = "Range: " + thisTower.Range.ToString();
+
+        string moneyBack = ((int)(thisTower.TotalMoneySoent / 2f)).ToString();
+        sellCostText.text = "$ " + moneyBack;
+
+        if (thisTower.UpgradeCost > 0)
+            upgradeCostText.text = "$ " + thisTower.UpgradeCost.ToString();
+        else if(thisTower.UpgradeCost == 0)
+        {
+            upgradeText.text = "Max";
+            upgradeCostText.gameObject.SetActive(false);
+        }
+    }
+
+    public void DrawRangeCircle(float radius)
+    {
+        lr.positionCount = segments;
+        for (int i = 0; i < segments; i++)
+        {
+            float angle = ((float)i / segments) * Mathf.PI * 2f;
+            float x = Mathf.Cos(angle) * radius;
+            float z = Mathf.Sin(angle) * radius;
+            lr.SetPosition(i, new Vector3(x, 0f, z));
+        }
+    }
+}
+```
+
+### Teknik Detaylar:
+- LineRenderer ile menzil göstergesi çizimi
+- UI panel'in kameraya bakma animasyonu
+- Kule satma sistemi (%50 para geri dönüşü)
+- Maksimum yükseltme durumu kontrolü
+- EventSystem ile UI tıklama kontrolü
+
+---
+
+## GÜN 10: Dalga Yönetim Sistemi
+
+### Yapılan İşler:
+- WaveManager sınıfı oluşturuldu
+- EnemyWave ScriptableObject sistemi kuruldu
+- EnemySpawner sınıfı geliştirildi
+
+### Kod Geliştirmeleri:
+```csharp
+// WaveManager.cs - Dalga yönetim sistemi
+public class WaveManager : MonoBehaviour
+{
+    int currentWaveIndex = 0;
+    [SerializeField] List<EnemyWave> enemyWaves;
+    [SerializeField] EnemySpawner enemySpawner;
+    [SerializeField] float initialWaveDelay;
+    [SerializeField] Image clockImage;
+    [SerializeField] TextMeshProUGUI waveText;
+    float duration;
+    float counter = 0;
+
+    void Update()
+    {
+        SetWaveText();
+
+        if (currentWaveIndex >= enemyWaves.Count)
+            return;  
+
+        counter += Time.deltaTime;
+
+        if (currentWaveIndex == 0 && counter >= initialWaveDelay)
+        {
+            enemySpawner.StartEnemySpawn(enemyWaves[currentWaveIndex]);
+            currentWaveIndex++;
+            duration = enemyWaves[currentWaveIndex].duration;
+            counter = 0;
+        }
+        else if (counter >= enemyWaves[currentWaveIndex].duration)
+        {
+            MoneyManager.Instance.AddMoney(enemyWaves[currentWaveIndex - 1].prizeMoney);
+            enemySpawner.StartEnemySpawn(enemyWaves[currentWaveIndex]);
+            currentWaveIndex++;
+
+            if (currentWaveIndex >= enemyWaves.Count)
+            {
+                clockImage.fillAmount = 1f;
+                return;
+            }
+            counter = 0;
+        }
+        SetClockImage();
+    }
+
+    void SetClockImage()
+    {
+        clockImage.fillAmount = counter / duration;
+    }
+}
+
+// EnemyWave.cs - Dalga verisi
+[CreateAssetMenu(fileName = "MyAssets",menuName = "EnemyWave")]
+public class EnemyWave : ScriptableObject
+{
+    public List<EnemySpawnInfo> enemySpawnInfos;
+    public float duration;
+    public float spawnInterval;
+    public int prizeMoney;
+}
+
+// EnemySpawnInfo.cs - Düşman spawn bilgisi
+[CreateAssetMenu(fileName = "MyAssets",menuName = "EnemySoawnInfo")]
+public class EnemySpawnInfo : ScriptableObject
+{
+    public GameObject enemyType;
+    public int enemyCount;
+}
+```
+
+### Teknik Detaylar:
+- ScriptableObject ile dalga verisi sistemi
+- Timer tabanlı dalga geçiş sistemi
+- Clock UI ile dalga bekleme göstergesi
+- Dalga bitiminde para ödülü sistemi
+- Coroutine tabanlı düşman spawn sistemi
+
+---
+
+## GÜN 11: Araç Sistemi Geliştirme
+
+### Yapılan İşler:
+- Vehicle sınıfı oluşturuldu
+- VehicleSpawner sistemi geliştirildi
+- Araç-düşman çarpışma sistemi kuruldu
+
+### Kod Geliştirmeleri:
+```csharp
+// Vehicle.cs - Araç sınıfı
+public class Vehicle : TowerBase
+{
+    [SerializeField] AudioClip crashSound;
+    [SerializeField] AudioClip explosionSound;
+    [SerializeField] AudioClip engineSound;
+    [SerializeField] GameObject explosionObject;
+    [SerializeField] Renderer vehicleRenderer;
+    [SerializeField] GameObject shotEffectObject;
+    [SerializeField] float speed;
+    [SerializeField] int health;
+    int maxHealth;
+    [SerializeField] GameObject healthPanel;
+    [SerializeField] TextMeshProUGUI healthText;
+    [SerializeField] Image healthBar;
+    [SerializeField] List<GameObject> tires;
+    [SerializeField] float destroyDelay;
+    int currentPathIndex;
+    Rigidbody rb;
+    public Tower militaryBaseTower;
+
+    void Start()
+    {
+        audioSource.clip = engineSound;
+        audioSource.Play();
+        audioSource.loop = true;
+        explosionObject.SetActive(false);
+        currentPathIndex = PathHolder.Instance.pathPoints.Count - 1;
+        maxHealth = health;
+        counter = fireRate;
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        if (health <= 0)
+        {
+            SetHealthUI();
+            GetComponent<Collider>().enabled = false;
+            audioSource.loop = false;
+            audioSource.Stop();
+            audioSource.PlayOneShot(explosionSound);
+            explosionObject.SetActive(true);
+
+            foreach (GameObject tire in tires)
+            {
+                tire.SetActive(false);
+            }
+
+            float randonAngle = Random.Range(-45f, 45f);
+            transform.Rotate(Vector3.up * randonAngle);
+            rb.linearVelocity = transform.forward * speed;
+            vehicleRenderer.material.DOColor(Color.black, 1f);
+            DOTween.To(() => rb.linearVelocity, x => rb.linearVelocity = x, Vector3.zero, destroyDelay / 1.5f);
+            Destroy(gameObject, destroyDelay);
+            this.enabled = false;
+            return;
+        }
+
+        RotateTires();
+        DetectEnemyInRange();
+        HitTarget();
+        Move();
+
+        if (healthPanel.activeSelf)
+        {
+            HealthBarLookAtPlayer();
+            SetHealthUI();
+        }
+    }
+
+    public void CrashToEnemy(Enemy crashedEnemy)
+    {
+        int dealedDamage = health >= crashedEnemy.HitPoint ? crashedEnemy.HitPoint : health;
+        health -= dealedDamage;
+        health = Mathf.Clamp(health, 0,200);
+        militaryBaseTower.TotalDamage += dealedDamage;
+        audioSource.PlayOneShot(crashSound);
+        MoneyManager.Instance.AddMoney(dealedDamage);
+        crashedEnemy.GetHit(dealedDamage);
+    }
+}
+```
+
+### Teknik Detaylar:
+- Ters yönde hareket sistemi (path index azaltma)
+- Araç-düşman çarpışma hesaplama sistemi
+- DOTween ile araç ölüm animasyonu
+- Lastik rotasyon animasyonu
+- Ses sistemi entegrasyonu (motor, çarpışma, patlama)
+
+---
+
+## GÜN 12: Araç Spawner Sistemi
+
+### Yapılan İşler:
+- VehicleSpawner sınıfı tamamlandı
+- VehicleUpgradeData sistemi kuruldu
+- Araç özellik güncelleme sistemi geliştirildi
+
+### Kod Geliştirmeleri:
+```csharp
+// VehicleSpawner.cs - Araç spawn sistemi
+public class VehicleSpawner : MonoBehaviour
+{
+    [SerializeField] GameObject spawnPoint;
+    [SerializeField] GameObject vehicle;
+    [SerializeField] float spawnTime;
+    Tower thisTower;
+    float counter;
+    VehicleUpgradeData vehicleUpgradeData;
+
+    void Start()
+    {
+        spawnPoint = GameObject.Find("EndPoint");
+        counter = spawnTime;
+        thisTower = GetComponent<Tower>();
+    }
+
+    void Update()
+    {
+        if (thisTower.IsPlaced == false)
+            return;
+
+        counter += Time.deltaTime;
+
+        if(counter >= spawnTime)
+        {
+            counter = 0;
+            SpawnVehicle();
+        }
+    }
+
+    void SpawnVehicle()
+    {
+        Vehicle spawnedVehicle = Instantiate(vehicle, spawnPoint.transform.position, Quaternion.identity).GetComponent<Vehicle>();
+        spawnedVehicle.militaryBaseTower = thisTower;
+        SetVehicleProperties(spawnedVehicle);
+    }
+
+    void SetVehicleProperties(Vehicle spawnedVehicle)
+    {
+        if(vehicleUpgradeData != null)
+        {
+            spawnedVehicle.Speed = vehicleUpgradeData.speed;
+            spawnedVehicle.Health = vehicleUpgradeData.health;
+            spawnedVehicle.FireRate = vehicleUpgradeData.fireRate;
+            spawnedVehicle.FirePower = vehicleUpgradeData.firePower;
+            spawnedVehicle.Range = vehicleUpgradeData.range;
+        }
+    }
+
+    public void SetVehicleData(VehicleUpgradeData vehicleData)
+    {
+        vehicleUpgradeData = vehicleData;
+    }
+}
+
+// VehicleUpgradeData.cs - Araç yükseltme verisi
+[CreateAssetMenu(fileName = "MYAssets", menuName = "TowerUpgradeData")]
+public class VehicleUpgradeData : UpgradeData
+{
+    public float speed;
+    public int health;
+}
+```
+
+### Teknik Detaylar:
+- Timer tabanlı araç spawn sistemi
+- Yükseltme verisi ile araç özellik güncelleme
+- Military base kule ile araç bağlantısı
+- EndPoint'ten araç spawn sistemi
+- Araç özelliklerinin runtime'da güncellenmesi
+
+---
+
+## GÜN 13: Ses Sistemi ve Efektler
+
+### Yapılan İşler:
+- AudioSource entegrasyonu tamamlandı
+- Particle system efektleri eklendi
+- Düşman ses sistemi geliştirildi
+
+### Kod Geliştirmeleri:
+```csharp
+// Enemy.cs - Ses sistemi entegrasyonu
+void MakeSound()
+{
+    counter += Time.deltaTime;
+
+    if(counter >= soundRate)
+    {
+        counter = 0;
+        soundRate = Random.Range(10f, 25f);
+
+        AudioClip selectedClip = zombieSounds[Random.Range(0, zombieSounds.Count)];
+        audioSource.PlayOneShot(selectedClip);
+    }
+}
+
+void BloodEffectActivation()
+{
+    ParticleSystem ps = bloodEffect.GetComponent<ParticleSystem>();
+    ps.Play();
+}
+
+// Vehicle.cs - Efekt sistemleri
+void ShotEffectActivation()
+{
+    ParticleSystem ps = shotEffectObject.GetComponent<ParticleSystem>();
+    ps.Play();
+}
+```
+
+### Teknik Detaylar:
+- Rastgele ses çalma sistemi
+- Particle system ile kan efekti
+- Araç ateş efekti sistemi
+- Ses dosyaları için List yapısı
+- Rastgele ses aralığı sistemi
+
+---
+
+## GÜN 14: UI Sistem Geliştirme
+
+### Yapılan İşler:
+- UIManager sınıfı tamamlandı
+- Panel yönetim sistemi kuruldu
+- Scene geçiş sistemi geliştirildi
+
+### Kod Geliştirmeleri:
+```csharp
+// UIManager.cs - UI yönetim sistemi
+public class UIManager : MonoBehaviour
+{
+    [SerializeField] List<GameObject> panels;
+    [SerializeField] GameObject winPanel;
+    [SerializeField] GameObject losePanel;
+    [SerializeField] string gameScene;
+
+    public void PlayButton()
+    {
+        SceneManager.LoadScene(gameScene);
+    }
+
+    public void SetLoseUI()
+    {
+        CloseAllPanels();
+        losePanel.SetActive(true);
+    }
+
+    void CloseAllPanels()
+    {
+        foreach (var panel in panels)
+        {
+            panel.SetActive(false);
+        }
+    }
+}
+```
+
+### Teknik Detaylar:
+- Panel listesi ile UI yönetimi
+- Scene geçiş sistemi
+- Oyun kaybetme UI'ı
+- Panel kapatma sistemi
+- String tabanlı scene yükleme
+
+---
+
+## GÜN 15: Kule Animasyon Sistemi
+
+### Yapılan İşler:
+- TowerAnimations sınıfı entegre edildi
+- Kule ateş animasyonu eklendi
+- Animator controller sistemi kuruldu
+
+### Kod Geliştirmeleri:
+```csharp
+// Tower.cs - Animasyon entegrasyonu
+override protected void HitTarget()
+{
+    counter += Time.deltaTime;
+
+    if (target != null)
+    {
+        if (counter >= fireRate)
+        {
+            transform.LookAt(target.transform.position);
+            towerAnimations.ShootAnim();
+            audioSource.PlayOneShot(shotSound);
+            counter = 0f;
+            int dealedDamage = target.GetHit(firePower);
+            MoneyManager.Instance.AddMoney(dealedDamage);
+            totalDamage += dealedDamage;
+        }
+    }
+}
+```
+
+### Teknik Detaylar:
+- TowerAnimations referansı ile animasyon kontrolü
+- LookAt ile hedefe bakma animasyonu
+- Ateş animasyonu tetikleme
+- Ses ve animasyon senkronizasyonu
+- Hasar hesaplama ve para ekleme sistemi
+
+---
+
+## GÜN 16: Performans Optimizasyonu
+
+### Yapılan İşler:
+- Object pooling sistemi araştırıldı
+- Update metodları optimize edildi
+- Gereksiz hesaplamalar azaltıldı
+
+### Kod Geliştirmeleri:
+```csharp
+// Enemy.cs - Optimizasyon
+void Update()
+{
+    if(hitPoint <= 0)
+    {
+        Destroy(gameObject);
+        return; // Early return ile gereksiz işlemleri önle
+    }
+
+    Move();
+    MakeSound();
+
+    if (HitPointPanel.activeSelf)
+    {
+        HealthBarLookAtPlayer();
+        SetHitPointUI();
+    }
+}
+
+// TowerBase.cs - Optimizasyon
+protected virtual void DetectEnemyInRange()
+{
+    Vector3 rangeCheckPos = transform.position;
+    rangeCheckPos.y = 0;
+
+    Collider[] enemyColliders = Physics.OverlapSphere(rangeCheckPos, range, LayerMask.GetMask("Enemy"));
+
+    // Null check ile performans artırımı
+    targetsInRange.RemoveAll(e => e == null || enemyColliders.Contains(e.GetComponent<Collider>()) == false);
+
+    foreach (var col in enemyColliders)
+    {
+        Enemy enemy = col.GetComponent<Enemy>();
+        if (enemy != null && targetsInRange.Contains(enemy) == false)
+        {
+            targetsInRange.Add(enemy);
+        }
+    }
+
+    // LINQ ile hedef seçim optimizasyonu
+    target = targetsInRange
+            .OrderByDescending(e => e.currentPathIndex)
+            .ThenBy(e => e.GetDistanceToNextPath())
+            .FirstOrDefault();
+}
+```
+
+### Teknik Detaylar:
+- Early return pattern ile performans artırımı
+- Null check optimizasyonları
+- LINQ kullanımı ile hedef seçim optimizasyonu
+- Gereksiz hesaplamaların azaltılması
+- Memory allocation'ların minimize edilmesi
+
+---
+
+## GÜN 17: Hata Ayıklama ve Test
+
+### Yapılan İşler:
+- Bug fix'ler yapıldı
+- Oyun test edildi
+- Performans sorunları giderildi
+
+### Düzeltilen Hatalar:
+```csharp
+// TowerPlacementManager.cs - Bug fix
+void PlaceTower()
+{
+    if (currentTower == null) return;
+
+    if (currentTowerCount >= maxTowerCount)
+        return;
+    
+    Tower towerScript = currentTower.GetComponent<Tower>();
+
+    // Null check eklendi
+    if (towerScript == null) return;
+
+    if (CheckForTowersNearBy(towerScript) || CheckForRoad(towerScript))
+        return;
+
+    // Para kontrolü eklendi
+    if (!MoneyManager.Instance.HaveEnoughMoney(towerScript.StartCost))
+        return;
+
+    MoneyManager.Instance.SpendMoney(towerScript.StartCost);
+    towerScript.IsPlaced = true;
+    currentTowerCount++;
+    currentTower = null;
+    SetTowerCountText();
+}
+
+// Enemy.cs - Bug fix
+void Update()
+{
+    if(hitPoint <= 0)
+    {
+        Destroy(gameObject);
+        return;
+    }
+
+    // Null check eklendi
+    if (PathHolder.Instance == null || PathHolder.Instance.pathPoints == null)
+        return;
+
+    Move();
+    MakeSound();
+
+    if (HitPointPanel != null && HitPointPanel.activeSelf)
+    {
+        HealthBarLookAtPlayer();
+        SetHitPointUI();
+    }
+}
+```
+
+### Teknik Detaylar:
+- Null reference exception'ların giderilmesi
+- Para kontrolü eksikliklerinin düzeltilmesi
+- PathHolder null check'lerinin eklenmesi
+- UI element null check'lerinin eklenmesi
+- Memory leak'lerin önlenmesi
+
+---
+
+## GÜN 18: Oyun Dengesi ve Ayarlama
+
+### Yapılan İşler:
+- Kule değerleri ayarlandı
+- Düşman sağlık ve hız değerleri optimize edildi
+- Para sistemi dengelendi
+
+### Ayarlanan Değerler:
+```csharp
+// Tower değerleri
+- Başlangıç maliyeti: 100-500 arası
+- Ateş gücü: 10-50 arası
+- Ateş hızı: 0.5-2.0 saniye
+- Menzil: 3-8 birim
+
+// Enemy değerleri
+- Sağlık: 20-100 arası
+- Hız: 1-5 birim/saniye
+- Para ödülü: 5-25 arası
+
+// Wave değerleri
+- Dalga süresi: 30-60 saniye
+- Spawn aralığı: 1-3 saniye
+- Dalga ödülü: 50-200 arası
+```
+
+### Teknik Detaylar:
+- ScriptableObject değerlerinin ayarlanması
+- Oyun zorluk eğrisinin optimize edilmesi
+- Para ekonomisinin dengelenmesi
+- Kule-düşman etkileşiminin ayarlanması
+- Dalga geçiş sürelerinin optimize edilmesi
+
+---
+
+## GÜN 19: Final Test ve Polish
+
+### Yapılan İşler:
+- Tüm sistemler test edildi
+- UI polish yapıldı
+- Ses seviyeleri ayarlandı
+
+### Test Edilen Sistemler:
+```csharp
+// Test senaryoları
+1. Kule yerleştirme sistemi
+   - Para yetersizliği durumu
+   - Maksimum kule sayısı kontrolü
+   - Geçersiz yerleştirme alanları
+
+2. Düşman spawn sistemi
+   - Dalga geçişleri
+   - Düşman sayısı kontrolü
+   - Path takip sistemi
+
+3. Kule yükseltme sistemi
+   - Para kontrolü
+   - Maksimum tier kontrolü
+   - UI güncellemeleri
+
+4. Araç sistemi
+   - Spawn timing
+   - Çarpışma hesaplamaları
+   - Ölüm animasyonları
+
+5. UI sistemleri
+   - Panel geçişleri
+   - Bilgi güncellemeleri
+   - Buton etkileşimleri
+```
+
+### Teknik Detaylar:
+- Comprehensive test coverage
+- UI/UX polish
+- Audio level balancing
+- Performance optimization
+- Memory leak prevention
+
+---
+
+## GÜN 20: Proje Tamamlama ve Dokümantasyon
+
+### Yapılan İşler:
+- Proje dokümantasyonu tamamlandı
+- Kod yorumları eklendi
+- Build ayarları yapıldı
+
+### Final Kod Yapısı:
+```csharp
+// Proje klasör yapısı
+Assets/
+├── Scripts/
+│   ├── Core/
+│   │   ├── GameManager.cs
+│   │   ├── PathHolder.cs
+│   │   └── UIManager.cs
+│   ├── Systems/
+│   │   ├── MoneyManager.cs
+│   │   ├── PlayerHealthHandler.cs
+│   │   └── WaveManager.cs
+│   ├── Towers/
+│   │   ├── TowerBase.cs
+│   │   ├── Tower.cs
+│   │   ├── TowerUpgrader.cs
+│   │   └── TowerUIController.cs
+│   ├── Enemies/
+│   │   ├── Enemy.cs
+│   │   ├── EnemySpawner.cs
+│   │   ├── EnemyWave.cs
+│   │   └── EnemySpawnInfo.cs
+│   ├── Vehicles/
+│   │   ├── Vehicle.cs
+│   │   ├── VehicleSpawner.cs
+│   │   └── VehicleUpgradeData.cs
+│   ├── UI/
+│   │   └── TowerPlacementManager.cs
+│   └── Data/
+│       └── UpgradeData.cs
+├── Prefabs/
+│   ├── Towers/
+│   ├── Enemies/
+│   └── Vehicles/
+├── Scenes/
+│   ├── MainMenu.unity
+│   └── Game.unity
+└── Resources/
+    └── EnemyWaveDatas/
+```
+
+### Teknik Detaylar:
+- Clean code architecture
+- SOLID principles uygulaması
+- Singleton pattern kullanımı
+- ScriptableObject data management
+- Component-based design
+- Event-driven architecture
+
+---
+
+## SONUÇ
+
+20 günlük geliştirme sürecinde başarıyla tamamlanan TowerDefense oyunu:
+
+### Tamamlanan Özellikler:
+- ✅ Temel oyun yönetim sistemi
+- ✅ Kule yerleştirme ve yükseltme sistemi
+- ✅ Düşman spawn ve hareket sistemi
+- ✅ Dalga yönetim sistemi
+- ✅ Para ve sağlık yönetimi
+- ✅ Araç sistemi
+- ✅ UI/UX sistemi
+- ✅ Ses ve efekt sistemi
+- ✅ Performans optimizasyonu
+
+### Kullanılan Teknolojiler:
+- Unity 2022.3 LTS
+- C# Scripting
+- DOTween (Animasyon)
+- ScriptableObject (Data Management)
+- Singleton Pattern
+- Component-based Architecture
+
+### Kod Kalitesi:
+- Clean Code principles
+- SOLID principles
+- Proper error handling
+- Performance optimization
+- Memory management
+- Comprehensive testing
+
+Bu rapor, TowerDefense oyununun 20 günlük geliştirme sürecini detaylı olarak belgelemektedir. Her gün yapılan işler, kod örnekleri ve teknik detaylarla birlikte sunulmuştur.

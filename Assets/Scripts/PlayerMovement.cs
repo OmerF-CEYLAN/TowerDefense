@@ -66,8 +66,6 @@ public class PlayerMovement : MonoBehaviour
 
         if(isGrounded)
         {
-            Debug.Log("JUMPING");
-
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
  

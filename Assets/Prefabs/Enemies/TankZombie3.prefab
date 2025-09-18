@@ -121,7 +121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3425933402523404374, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
       propertyPath: hitPoint
-      value: 1000
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 3453542048295394587, guid: cf49f6ffc1af0fd41b047fe43bafd00f, type: 3}
       propertyPath: m_Avatar

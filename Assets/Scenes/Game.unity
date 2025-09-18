@@ -2724,7 +2724,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8bad820a840b62e45a29283f4b75cd78, type: 2}
   - {fileID: 11400000, guid: e8fa7f2a16fe93d42af082e1cb9e7996, type: 2}
   - {fileID: 11400000, guid: ec4f481ac3ea6c4479fa6cfca2b53068, type: 2}
-  - {fileID: 11400000, guid: 59a7e5c4ca23ac2409913ad5c374f54b, type: 2}
+  - {fileID: 11400000, guid: 7cdc6319ad108a84da5f165548e1a872, type: 2}
+  - {fileID: 11400000, guid: c2a569dccc6e08442815f1b2f8fddb1e, type: 2}
+  - {fileID: 11400000, guid: 205a89a849292a443899740afa2b60b5, type: 2}
+  - {fileID: 11400000, guid: 44caf545f45d44649929ddb513f47e7e, type: 2}
+  - {fileID: 11400000, guid: 0eede5489ede5774aa864d3ee50dba27, type: 2}
+  - {fileID: 11400000, guid: ce63def80798cb64dab21c2b189ee9b8, type: 2}
+  - {fileID: 11400000, guid: 5ff808c1ca03f7048b112a0bf7551517, type: 2}
+  - {fileID: 11400000, guid: c6bd0a486650be848964e65a2adc94b2, type: 2}
+  - {fileID: 11400000, guid: dba1f996e320ccc4195377d337802814, type: 2}
+  - {fileID: 11400000, guid: 4175db77e03c11e41887c188da2e019a, type: 2}
+  - {fileID: 11400000, guid: ee8c02fb1f3d46b4abc8f556d166d58f, type: 2}
+  - {fileID: 11400000, guid: 21aa5cca51cf14541b4942ccbfdf1d46, type: 2}
+  - {fileID: 11400000, guid: 40f61e8b4c2402f45a7f57a782c0a2b4, type: 2}
+  - {fileID: 11400000, guid: 1ff72e0924d941d4ab9b99dca1174c50, type: 2}
+  - {fileID: 11400000, guid: b6be8e04e6ba18e4792704a21d303d32, type: 2}
+  - {fileID: 11400000, guid: a283f2e70ebc1184fab83db7c7b718fb, type: 2}
   enemySpawner: {fileID: 1820375684}
   initialWaveDelay: 20
   clockImage: {fileID: 230593590}
@@ -2929,7 +2944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6597a188e28b694da5238676e66ce46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialMoney: 1500
+  initialMoney: 250
   moneyText: {fileID: 1520391169}
 --- !u!1 &846783023
 GameObject:
