@@ -33,19 +33,12 @@ public class GameManager : MonoBehaviour
 
     public void OnGameWin()
     {
-
+        uiManager.SeWinUI();
     }
     
     public void OnGameLose()
     {
         uiManager.SetLoseUI();
-    }
-
-    public void Retry()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        
     }
 
 }

@@ -9,6 +9,14 @@ public class EnemySpawner : MonoBehaviour
 
     float spawnTime = 0;
 
+    bool isSpawning;
+
+    public bool IsSpawning
+    {
+        get => isSpawning;
+        set => isSpawning = value;
+    } 
+
     void Start()
     {
         
@@ -30,6 +38,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
+        isSpawning = true;
 
         foreach (var waveInfo in waveToSpawn.enemySpawnInfos)
         {
@@ -40,7 +49,9 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(spawnTime);
 
             }
-        }   
+        }
+
+        isSpawning = false;
 
     }
 

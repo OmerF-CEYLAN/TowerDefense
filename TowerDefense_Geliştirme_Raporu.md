@@ -1311,3 +1311,4 @@ Assets/
 - Comprehensive testing
 
 Bu rapor, TowerDefense oyununun 20 günlük geliştirme sürecini detaylı olarak belgelemektedir. Her gün yapılan işler, kod örnekleri ve teknik detaylarla birlikte sunulmuştur.
+

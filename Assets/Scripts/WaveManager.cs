@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
-    int currentWaveIndex = 0;
+    [SerializeField] int currentWaveIndex = 0;
 
     [SerializeField] List<EnemyWave> enemyWaves;
 
@@ -20,6 +20,8 @@ public class WaveManager : MonoBehaviour
     float duration;
 
     float counter = 0;
+
+    bool isLastWaveEnded;
 
     private void Awake()
     {
@@ -37,12 +39,23 @@ public class WaveManager : MonoBehaviour
         SetWaveText();
 
         if (currentWaveIndex >= enemyWaves.Count)
-            return;  
+        {
+            if(enemySpawner.IsSpawning == true)
+            {
+                CheckLastWaveEnd();
+                return;
+            }
+
+            CheckLastWaveEnd();
+
+            if (isLastWaveEnded == true)
+                GameManager.Instance.OnGameWin();
+
+            return;
+        }
 
         counter += Time.deltaTime;
 
-        //if (currentWaveIndex > 0 && FindAnyObjectByType<Enemy>() == null)
-        //    counter = enemyWaves[currentWaveIndex].duration; EÐER SKÝP BASILIRSA BU TARZDA BÝR KOD ÇALIÞACAK
 
         if (currentWaveIndex == 0 && counter >= initialWaveDelay)
         {
@@ -96,7 +109,24 @@ public class WaveManager : MonoBehaviour
             return;
         }
 
-        counter = enemyWaves[currentWaveIndex].duration;
+        if(enemySpawner.IsSpawning == false)
+            counter = enemyWaves[currentWaveIndex].duration;
+    }
+
+    public void CheckLastWaveEnd()
+    {
+        if (PlayerHealthHandler.Instance.Health <= 0)
+            return;
+
+        if(enemySpawner.IsSpawning == false)
+        {
+            Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsInactive.Exclude,FindObjectsSortMode.None);
+
+            if(enemies.Length == 0)
+            {
+                isLastWaveEnded = true;
+            }
+        }
     }
 
 }
