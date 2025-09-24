@@ -17,6 +17,8 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI waveText;
 
+    [SerializeField] bool autoStartNextWave,loopWaves;
+
     float duration;
 
     float counter = 0;
@@ -49,9 +51,22 @@ public class WaveManager : MonoBehaviour
             CheckLastWaveEnd();
 
             if (isLastWaveEnded == true)
+            {
+                if (loopWaves)
+                {
+                    currentWaveIndex = 0;
+                    return;
+                }
                 GameManager.Instance.OnGameWin();
+            }
+
 
             return;
+        }
+
+        if (autoStartNextWave && enemySpawner.IsSpawning == false && enemyWaves[currentWaveIndex].duration - counter > 15f)
+        {
+            counter = enemyWaves[currentWaveIndex].duration - 15f;
         }
 
         counter += Time.deltaTime;
@@ -81,6 +96,8 @@ public class WaveManager : MonoBehaviour
                 clockImage.fillAmount = 1f;
                 return;
             }
+
+            duration = enemyWaves[currentWaveIndex].duration;
 
             counter = 0;
         }

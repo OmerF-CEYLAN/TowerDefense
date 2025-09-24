@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 0.05
   firePower: 2
-  range: 7
-  upgradeCost: 1300
+  range: 8
+  upgradeCost: 2000

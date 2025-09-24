@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PistolTowerUpgrade1
   m_EditorClassIdentifier: 
   fireRate: 0.8
-  firePower: 2
+  firePower: 1
   range: 5
   upgradeCost: 80

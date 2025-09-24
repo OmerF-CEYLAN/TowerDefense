@@ -20,6 +20,8 @@ public class PlayerHealthHandler : MonoBehaviour
 
     [SerializeField] float barChangeSpeed;
 
+    [SerializeField] bool infiniteHealth;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -42,7 +44,14 @@ public class PlayerHealthHandler : MonoBehaviour
     
     void Update()
     {
-        if(health < 0)
+        if (infiniteHealth)
+        {
+            health = 10000;
+            return;
+        }
+            
+
+        if (health < 0)
         {
             health = 0;
 

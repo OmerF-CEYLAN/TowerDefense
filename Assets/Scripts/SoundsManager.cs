@@ -26,15 +26,13 @@ public class SoundsManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        LoadVolumes();
-
         audioSource = GetComponent<AudioSource>();
         SelectMusic();
     }
 
     void Start()
     {
-        
+        LoadVolumes();
     }
 
     // Update is called once per frame

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Minigun2
   m_EditorClassIdentifier: 
   fireRate: 0.1
-  firePower: 2
+  firePower: 1
   range: 6
-  upgradeCost: 800
+  upgradeCost: 1200
